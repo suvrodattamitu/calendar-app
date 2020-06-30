@@ -1908,6 +1908,17 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _methods;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2021,7 +2032,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      focus: '',
+      today: new Date().toISOString().substr(0, 10),
+      focus: new Date().toISOString().substr(0, 10),
       type: 'month',
       typeToLabel: {
         month: 'Month',
@@ -2029,18 +2041,26 @@ __webpack_require__.r(__webpack_exports__);
         day: 'Day',
         '4day': '4 Days'
       },
+      name: null,
+      details: null,
+      start: null,
+      end: null,
+      color: '#1976D2',
+      currentlyEditing: null,
       selectedEvent: {},
       selectedElement: null,
       selectedOpen: false,
       events: [],
+      dialog: false,
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
       names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday Birthday Birthday Birthday Birthday Birthday', 'Conference', 'Party']
     };
   },
   mounted: function mounted() {
     this.$refs.calendar.checkChange();
+    this.getEvents();
   },
-  methods: {
+  methods: (_methods = {
     viewDay: function viewDay(_ref) {
       var date = _ref.date;
       this.focus = date;
@@ -2058,59 +2078,81 @@ __webpack_require__.r(__webpack_exports__);
     next: function next() {
       this.$refs.calendar.next();
     },
-    showEvent: function showEvent(_ref2) {
+    editEvent: function editEvent(ev) {
+      this.currentlyEditing = ev.id;
+    },
+    updateEvent: function updateEvent(ev) {
+      axios.post('/update-event', ev).then(function (response) {
+        //this.events = response.data.events;
+        console.log(response.data);
+      })["catch"](function (error) {
+        console.log(error);
+      }).then(function () {});
+    },
+    getEvents: function getEvents() {
       var _this = this;
 
-      var nativeEvent = _ref2.nativeEvent,
-          event = _ref2.event;
-
-      var open = function open() {
-        _this.selectedEvent = event;
-        _this.selectedElement = nativeEvent.target;
-        setTimeout(function () {
-          return _this.selectedOpen = true;
-        }, 10);
-      };
-
-      if (this.selectedOpen) {
-        this.selectedOpen = false;
-        setTimeout(open, 10);
-      } else {
-        open();
-      }
-
-      nativeEvent.stopPropagation();
-    },
-    updateRange: function updateRange(_ref3) {
-      var start = _ref3.start,
-          end = _ref3.end;
-      var events = [];
-      var min = new Date("".concat(start.date, "T00:00:00"));
-      var max = new Date("".concat(end.date, "T23:59:59"));
-      var days = (max.getTime() - min.getTime()) / 86400000;
-      var eventCount = this.rnd(days, days + 20);
-
-      for (var i = 0; i < eventCount; i++) {
-        var allDay = this.rnd(0, 3) === 0;
-        var firstTimestamp = this.rnd(min.getTime(), max.getTime());
-        var first = new Date(firstTimestamp - firstTimestamp % 900000);
-        var secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
-        var second = new Date(first.getTime() + secondTimestamp);
-        events.push({
-          name: this.names[this.rnd(0, this.names.length - 1)],
-          start: first,
-          end: second,
-          color: this.colors[this.rnd(0, this.colors.length - 1)],
-          timed: !allDay
-        });
-      }
-
-      this.events = events;
-    },
-    rnd: function rnd(a, b) {
-      return Math.floor((b - a + 1) * Math.random()) + a;
+      axios.get('/all-events').then(function (response) {
+        _this.events = response.data.events;
+        console.log(response.data);
+      })["catch"](function (error) {
+        console.log(error);
+      }).then(function () {});
     }
-  }
+  }, _defineProperty(_methods, "prev", function prev() {
+    this.$refs.calendar.prev();
+  }), _defineProperty(_methods, "next", function next() {
+    this.$refs.calendar.next();
+  }), _defineProperty(_methods, "showEvent", function showEvent(_ref2) {
+    var _this2 = this;
+
+    var nativeEvent = _ref2.nativeEvent,
+        event = _ref2.event;
+
+    var open = function open() {
+      _this2.selectedEvent = event;
+      _this2.selectedElement = nativeEvent.target;
+      setTimeout(function () {
+        return _this2.selectedOpen = true;
+      }, 10);
+    };
+
+    if (this.selectedOpen) {
+      this.selectedOpen = false;
+      setTimeout(open, 10);
+    } else {
+      open();
+    }
+
+    nativeEvent.stopPropagation();
+  }), _defineProperty(_methods, "updateRange", function updateRange(_ref3) {
+    var start = _ref3.start,
+        end = _ref3.end;
+    var events = [];
+    var min = new Date("".concat(start.date, "T00:00:00"));
+    var max = new Date("".concat(end.date, "T23:59:59"));
+    var days = (max.getTime() - min.getTime()) / 86400000;
+    var eventCount = this.rnd(days, days + 20);
+
+    for (var i = 0; i < eventCount; i++) {
+      var allDay = this.rnd(0, 3) === 0;
+      var firstTimestamp = this.rnd(min.getTime(), max.getTime());
+      var first = new Date(firstTimestamp - firstTimestamp % 900000);
+      var secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
+      var second = new Date(first.getTime() + secondTimestamp);
+      events.push({
+        name: this.names[this.rnd(0, this.names.length - 1)],
+        start: first,
+        end: second,
+        color: this.colors[this.rnd(0, this.colors.length - 1)],
+        timed: !allDay
+      });
+    }
+
+    this.events = events;
+  }), _defineProperty(_methods, "rnd", function rnd(a, b) {
+    return Math.floor((b - a + 1) * Math.random()) + a;
+  }), _methods)
 });
 
 /***/ }),
@@ -40332,7 +40374,16 @@ var render = function() {
                                 [
                                   _c(
                                     "v-btn",
-                                    { attrs: { icon: "" } },
+                                    {
+                                      attrs: { icon: "" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.editEvent(
+                                            _vm.selectedEvent
+                                          )
+                                        }
+                                      }
+                                    },
                                     [_c("v-icon", [_vm._v("mdi-pencil")])],
                                     1
                                   ),
@@ -40347,19 +40398,17 @@ var render = function() {
                                   _vm._v(" "),
                                   _c(
                                     "v-btn",
-                                    { attrs: { icon: "" } },
-                                    [_c("v-icon", [_vm._v("mdi-heart")])],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-btn",
-                                    { attrs: { icon: "" } },
-                                    [
-                                      _c("v-icon", [
-                                        _vm._v("mdi-dots-vertical")
-                                      ])
-                                    ],
+                                    {
+                                      attrs: { icon: "" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deleteEvent(
+                                            _vm.selectedEvent.id
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_c("v-icon", [_vm._v("mdi-delete")])],
                                     1
                                   )
                                 ],
@@ -40367,11 +40416,45 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c("v-card-text", [
-                                _c("span", {
-                                  domProps: {
-                                    innerHTML: _vm._s(_vm.selectedEvent.details)
-                                  }
-                                })
+                                _c("form", [
+                                  _vm.currentlyEditing !== _vm.selectedEvent.id
+                                    ? _c("span", [
+                                        _vm._v(
+                                          "\n                                " +
+                                            _vm._s(_vm.selectedEvent.details) +
+                                            "\n                              "
+                                        )
+                                      ])
+                                    : _c("textarea", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.selectedEvent.details,
+                                            expression: "selectedEvent.details"
+                                          }
+                                        ],
+                                        attrs: {
+                                          type: "text",
+                                          placeholder: "Add Note"
+                                        },
+                                        domProps: {
+                                          value: _vm.selectedEvent.details
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.selectedEvent,
+                                              "details",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                ])
                               ]),
                               _vm._v(" "),
                               _c(
@@ -40380,19 +40463,32 @@ var render = function() {
                                   _c(
                                     "v-btn",
                                     {
-                                      attrs: { text: "", color: "secondary" },
+                                      attrs: { textcolor: "secondary" },
                                       on: {
                                         click: function($event) {
                                           _vm.selectedOpen = false
                                         }
                                       }
                                     },
-                                    [
-                                      _vm._v(
-                                        "\n                            Cancel\n                        "
+                                    [_vm._v("Cancel")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm.currentlyEditing === _vm.selectedEvent.id
+                                    ? _c(
+                                        "v-btn",
+                                        {
+                                          attrs: { textcolor: "secondary" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.updateEvent(
+                                                _vm.selectedEvent
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Update")]
                                       )
-                                    ]
-                                  )
+                                    : _vm._e()
                                 ],
                                 1
                               )

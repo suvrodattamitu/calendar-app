@@ -75,29 +75,36 @@
                             :color="selectedEvent.color"
                             dark
                             >
-                            <v-btn icon>
+                            <v-btn icon @click="editEvent(selectedEvent)">
                                 <v-icon>mdi-pencil</v-icon>
                             </v-btn>
                             <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                             <v-spacer></v-spacer>
-                            <v-btn icon>
-                                <v-icon>mdi-heart</v-icon>
-                            </v-btn>
-                            <v-btn icon>
-                                <v-icon>mdi-dots-vertical</v-icon>
+                            <v-btn icon @click="deleteEvent(selectedEvent.id)">
+                                <v-icon>mdi-delete</v-icon>
                             </v-btn>
                             </v-toolbar>
+
                             <v-card-text>
-                            <span v-html="selectedEvent.details"></span>
+                              <!-- <span v-html="selectedEvent.details"></span> -->
+                              <form>
+                                  <span v-if="currentlyEditing !== selectedEvent.id">
+                                    {{ selectedEvent.details }}
+                                  </span>
+                                  <textarea 
+                                    v-else
+                                    type="text"
+                                    v-model="selectedEvent.details"
+                                    placeholder="Add Note"
+                                  >
+
+                                  </textarea>
+                              </form>
                             </v-card-text>
+
                             <v-card-actions>
-                            <v-btn
-                                text
-                                color="secondary"
-                                @click="selectedOpen = false"
-                            >
-                                Cancel
-                            </v-btn>
+                              <v-btn textcolor="secondary" @click="selectedOpen = false">Cancel</v-btn>
+                              <v-btn textcolor="secondary" v-if="currentlyEditing === selectedEvent.id" @click="updateEvent(selectedEvent)">Update</v-btn>
                             </v-card-actions>
                         </v-card>
                         </v-menu>
@@ -111,7 +118,9 @@
 <script>
   export default {
     data: () => ({
-      focus: '',
+
+      today: new Date().toISOString().substr(0,10),
+      focus: new Date().toISOString().substr(0,10),
       type: 'month',
       typeToLabel: {
         month: 'Month',
@@ -119,17 +128,32 @@
         day: 'Day',
         '4day': '4 Days',
       },
+      name:null,
+      details:null,
+      start:null,
+      end:null,
+      color:'#1976D2',
+      currentlyEditing:null,
+
       selectedEvent: {},
       selectedElement: null,
       selectedOpen: false,
+
       events: [],
+      dialog:false,
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
       names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday Birthday Birthday Birthday Birthday Birthday', 'Conference', 'Party'],
+    
     }),
+
     mounted () {
+
       this.$refs.calendar.checkChange()
+      this.getEvents();
+
     },
     methods: {
+
       viewDay ({ date }) {
         this.focus = date
         this.type = 'day'
@@ -140,6 +164,59 @@
       setToday () {
         this.focus = ''
       },
+      prev () {
+        this.$refs.calendar.prev()
+      },
+      next () {
+        this.$refs.calendar.next()
+      },
+
+
+      editEvent(ev){
+        this.currentlyEditing = ev.id;
+      },
+
+      updateEvent(ev){
+
+        axios.post('/update-event',ev)
+            .then(response => {
+
+              //this.events = response.data.events;
+              console.log(response.data);
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .then(() => {
+                
+            });
+
+      },
+
+      getEvents(){
+
+          axios.get('/all-events')
+              .then(response => {
+
+                this.events = response.data.events;
+                console.log(response.data);
+
+              })
+              .catch(error => {
+                  console.log(error);
+              })
+              .then(() => {
+                  
+              });
+
+      },
+
+     
+      // getEventColor (event) {
+      //   return event.color
+      // },
+      
       prev () {
         this.$refs.calendar.prev()
       },
