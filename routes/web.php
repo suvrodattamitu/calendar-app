@@ -13,9 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::any('/admin/{any?}', 'Calendar\CalendarController@index')->where('any','.*')->middleware('auth');
+
 Route::get('/', function () {
+    return Redirect::to('/admin/calendar');
+});
+
+Route::get('/admin/calendar', function () {
     return view('welcome');
 });
 
 Route::get('/all-events','Calendar\CalendarController@getEvents');
 Route::post('/update-event','Calendar\CalendarController@updateEvent');
+Route::delete('/delete-event/{id}','Calendar\CalendarController@deleteEvent');
+
+
+Auth::routes();
+
+

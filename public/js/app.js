@@ -2082,38 +2082,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.currentlyEditing = ev.id;
     },
     updateEvent: function updateEvent(ev) {
+      var _this = this;
+
       axios.post('/update-event', ev).then(function (response) {
-        //this.events = response.data.events;
-        console.log(response.data);
+        _this.selectedOpen = false;
+        _this.currentlyEditing = null;
+
+        _this.getEvents();
       })["catch"](function (error) {
         console.log(error);
       }).then(function () {});
     },
     getEvents: function getEvents() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get('/all-events').then(function (response) {
-        _this.events = response.data.events;
+        _this2.events = response.data.events;
         console.log(response.data);
       })["catch"](function (error) {
         console.log(error);
       }).then(function () {});
+    },
+    deleteEvent: function deleteEvent(id) {
+      var _this3 = this;
+
+      axios["delete"]('/delete-event/' + id).then(function (response) {
+        _this3.selectedOpen = false;
+        _this3.currentlyEditing = null;
+
+        _this3.getEvents();
+      })["catch"](function (error) {}).then(function () {});
     }
   }, _defineProperty(_methods, "prev", function prev() {
     this.$refs.calendar.prev();
   }), _defineProperty(_methods, "next", function next() {
     this.$refs.calendar.next();
   }), _defineProperty(_methods, "showEvent", function showEvent(_ref2) {
-    var _this2 = this;
+    var _this4 = this;
 
     var nativeEvent = _ref2.nativeEvent,
         event = _ref2.event;
 
     var open = function open() {
-      _this2.selectedEvent = event;
-      _this2.selectedElement = nativeEvent.target;
+      _this4.selectedEvent = event;
+      _this4.selectedElement = nativeEvent.target;
       setTimeout(function () {
-        return _this2.selectedOpen = true;
+        return _this4.selectedOpen = true;
       }, 10);
     };
 
@@ -2128,30 +2142,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }), _defineProperty(_methods, "updateRange", function updateRange(_ref3) {
     var start = _ref3.start,
         end = _ref3.end;
-    var events = [];
-    var min = new Date("".concat(start.date, "T00:00:00"));
-    var max = new Date("".concat(end.date, "T23:59:59"));
-    var days = (max.getTime() - min.getTime()) / 86400000;
-    var eventCount = this.rnd(days, days + 20);
-
-    for (var i = 0; i < eventCount; i++) {
-      var allDay = this.rnd(0, 3) === 0;
-      var firstTimestamp = this.rnd(min.getTime(), max.getTime());
-      var first = new Date(firstTimestamp - firstTimestamp % 900000);
-      var secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
-      var second = new Date(first.getTime() + secondTimestamp);
-      events.push({
-        name: this.names[this.rnd(0, this.names.length - 1)],
-        start: first,
-        end: second,
-        color: this.colors[this.rnd(0, this.colors.length - 1)],
-        timed: !allDay
-      });
-    }
-
-    this.events = events;
-  }), _defineProperty(_methods, "rnd", function rnd(a, b) {
-    return Math.floor((b - a + 1) * Math.random()) + a;
+    this.getEvents(); // const events = []
+    // const min = new Date(`${start.date}T00:00:00`)
+    // const max = new Date(`${end.date}T23:59:59`)
+    // const days = (max.getTime() - min.getTime()) / 86400000
+    // const eventCount = this.rnd(days, days + 20)
+    // for (let i = 0; i < eventCount; i++) {
+    //   const allDay = this.rnd(0, 3) === 0
+    //   const firstTimestamp = this.rnd(min.getTime(), max.getTime())
+    //   const first = new Date(firstTimestamp - (firstTimestamp % 900000))
+    //   const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
+    //   const second = new Date(first.getTime() + secondTimestamp)
+    //   events.push({
+    //     name: this.names[this.rnd(0, this.names.length - 1)],
+    //     start: first,
+    //     end: second,
+    //     color: this.colors[this.rnd(0, this.colors.length - 1)],
+    //     timed: !allDay,
+    //   })
+    // }
+    // this.events = events
   }), _methods)
 });
 
