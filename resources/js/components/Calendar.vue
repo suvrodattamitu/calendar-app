@@ -5,6 +5,7 @@
                 <v-col>
                     <v-sheet height="64">
                         <v-toolbar flat color="white">
+                        <v-btn color="primary" class="mr-4" @click.stop="dialog=true" dark>New Event</v-btn>
                         <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
                             Today
                         </v-btn>
@@ -47,6 +48,23 @@
                         </v-menu>
                         </v-toolbar>
                     </v-sheet>
+
+                    <!-- Add Event -->
+                    <v-dialog v-model="dialog" max-width="500">
+                      <v-card>
+                        <v-container>
+                          <v-form @submit.prevent="addEvent">
+                            <v-text-field v-model="name" type="text" label="Event Name"></v-text-field>
+                            <v-text-field v-model="details" type="text" label="Event Details"></v-text-field>
+                            <v-text-field v-model="start" type="date" label="Start Date"></v-text-field>
+                            <v-text-field v-model="end" type="date" label="End Date"></v-text-field>
+                            <v-text-field v-model="color" type="color" label="Event Color"></v-text-field>
+                            <v-btn type="submit" color="primary" class="mr-4" @click.stop="dialog=false">Create Event</v-btn>
+                          </v-form>
+                        </v-container>
+                      </v-card>
+                    </v-dialog>
+
                     <v-sheet height="600">
                         <v-calendar
                         ref="calendar"
@@ -221,7 +239,7 @@
             this.selectedOpen = false;
             this.currentlyEditing = null;
             this.getEvents();
-            
+
           })
           .catch(error => {
 
@@ -229,6 +247,33 @@
           .then(() => {
 
           });
+
+      },
+
+      addEvent(){
+        
+        let info = {
+          name:this.name,
+          details:this.details,
+          start:this.start,
+          end:this.end,
+          color:this.color
+        };
+
+        axios.post('/create-event',info)
+            .then(response => {
+
+              this.getEvents();
+
+            })
+            .catch(error => {
+
+              console.log(error);
+              
+            })
+            .then(() => {
+                
+            });
 
       },
       

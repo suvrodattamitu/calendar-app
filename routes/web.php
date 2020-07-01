@@ -25,6 +25,7 @@ Route::get('/admin/calendar', function () {
 
 Route::get('/all-events','Calendar\CalendarController@getEvents');
 Route::post('/update-event','Calendar\CalendarController@updateEvent');
+Route::post('/create-event','Calendar\CalendarController@createEvent');
 Route::delete('/delete-event/{id}','Calendar\CalendarController@deleteEvent');
 
 

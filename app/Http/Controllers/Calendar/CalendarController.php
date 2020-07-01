@@ -39,6 +39,24 @@ class CalendarController extends Controller
         ],200);
     }
 
+    public function createEvent(Request $request){
+        
+        $userId = auth()->user()->id;
+        Calendar::create([
+            'user_id'   => $userId,
+            'name'      => $request->name,
+            'details'   => $request->details,
+            'start'     => $request->start,
+            'end'       => $request->end,
+            'color'     => $request->color
+        ]);
+        return response()->json([
+            'status'    => 'success',
+            'message'   => 'Updated successfully!'
+        ],200);
+        
+    }
+
     public function deleteEvent($id) {
         $userId = auth()->user()->id;
         Calendar::where('user_id',$userId)->where('id',$id)->delete();
