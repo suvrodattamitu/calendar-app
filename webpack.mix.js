@@ -10,5 +10,6 @@ var webpackConfig = {
 
 mix.webpackConfig(webpackConfig);
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.js('resources/js/boot.js', 'public/js/boot.js')
+    .js('resources/js/app.js', 'public/js/app.js')
+    .sass('resources/sass/app.scss', 'public/css/app.css');

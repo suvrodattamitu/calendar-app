@@ -17,10 +17,11 @@
     </head>
     <body>
     
-        <div id="app">
-            <calendar></calendar>
+        <div id="fluentmanagement">
+            <admin></admin>
         </div>
-        
+
+        <script src="{{ asset('js/boot.js') }}"></script>
         <script src="{{asset('js/app.js')}}"></script>
     </body>
 </html>
