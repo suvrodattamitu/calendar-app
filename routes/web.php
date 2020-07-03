@@ -2,10 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
+Route::get('/', ['middleware' =>'guest', function(){
+    return view('pages.home.home');
+}]);
+
 Auth::routes();
-Route::get('/', function () {
-    return Redirect::to('/admin');
-});
+
+// Route::get('/', function () {
+//     return Redirect::to('/admin');
+// });
 
 Route::any('/admin/{any?}', 'Calendar\CalendarController@index')->where('any','.*')->middleware('auth');
 

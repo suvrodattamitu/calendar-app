@@ -1,73 +1,82 @@
-@extends('layouts.app')
+<!-- @extends('layouts.app') -->
+
+@extends('partials.bodywithoutsidenav')
+@section('title', 'Login')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+<div class="home">
+<div class="container ">
+    <div class="row text-center">
+		<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 vh-align">
+		    <div class="panel-wrapper">
+                <div class="panel panel-default bg-whitelight box-shadow">
+                    <div class="panel-heading margin-bottom-10">
+                        ToDoApp Login
+                    </div>
+                    <div class="panel-body">
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
-                        </div>
+                        @endif
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
+                        <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <div class="form-group">
+                                <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12 control-label">E-Mail&nbsp<i class="fa fa-envelope"></i></label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input type="email" class="form-control icon" name="email" value="{{ old('email') }}" placeholder="e.g. michael@gmail.com">
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
+                            <div class="form-group">
+                                <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12 control-label">Password&nbsp<i class="fa fa-key"></i>
+                                </label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input type="password" class="form-control" name="password" placeholder="e.g. onlymichaelknows">
+                                </div>
                             </div>
-                        </div>
-                    </form>
+
+                            <div class="form-group">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="checkbox">
+                                        <label class="col-md-12 control-label">
+                                            <input type="checkbox" name="remember"> Remember Me
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-12 col-md-12 col-ms-12 col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-cyan" style="">
+                                        Login
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-12 col-md-12 col-ms-12 col-xs-12">
+                                    <a href="{{ url('/password/email') }}" class="btn btn-block btn-red">Forgot Password?</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-12 col-md-12 col-ms-12 col-xs-12">
+                                    <a href="{{ route('register') }}" class="btn btn-block btn-orange">Register</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+		</div>
+	</div>
+</div>
 </div>
 @endsection
