@@ -19,6 +19,8 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    protected $table = 'users';
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -36,4 +38,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function projects(){
+        return $this->hasMany('App\Model\Project');
+    }
+
+    public function tasks(){
+        return $this->hasManyThrough('App\Model\Tasks','App\Model\Project');
+    }
 }

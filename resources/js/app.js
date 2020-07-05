@@ -1,5 +1,21 @@
 //require('./bootstrap');
 window.Vue = require('vue');
+import {
+    
+    Message,
+    Notification,
+    Button,
+
+  } from 'element-ui';
+
+  Vue.use(Button);
+  Vue.prototype.$notify = Notification;
+  Vue.prototype.$message = Message;
+
+
+locale.use(lang);
+import lang from 'element-ui/lib/locale/lang/en';
+import locale from 'element-ui/lib/locale';
 
 import Vuetify from './../plugins/vuetify';
 Vue.component('calendar', require('./pages/Calendar.vue').default);

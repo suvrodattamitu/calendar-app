@@ -6310,6 +6310,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-right: -15px;
   margin-left: -15px;
 }
+
+
 @media (min-width: 992px) {
   .container > .navbar-header,
   .container-fluid > .navbar-header,
@@ -12311,13 +12313,11 @@ body {
   overflow-x: hidden;
   font-family: 'Muli','Source Sans Pro','Lato', 'Oxygen', "HelveticaNeueLight","Helvetica Neue", 'Helvetica', 'Arial', sans-serif !important;
   /*color: #555860;*/
-  color: #e2e2e2;
   font-size: 13px;
   text-rendering: optimizelegibility;
   -moz-osx-font-smoothing: grayscale;
   -moz-osx-font-smoothing: antialiased;
   /*background: #5F6A7D;*/
-  background: #434E60;
   /*background: #EFEFEF;*/
   position: relative;
 }
@@ -15690,10 +15690,16 @@ and (orientation: landscape) {
 
 }
 
+.container{
+  padding: 0px !important;
+}
+.navbar{
+  margin-top: 0px;
+}
 @media only screen and (max-width: 736px)
 {
     .navbar-default .navbar-brand {
-        margin-top: -30px;
+        /* margin-top: -30px; */
     }
 }
 

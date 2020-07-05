@@ -1,5 +1,5 @@
 <template>
-    <div class="wpsr_social_review_global">
+    <div>
         <!-- <div class="wpsr_social_review_global_main_nav">
             <span>{{ 'Clever Ninja' }}</span>
             <router-link v-for="menuItem in topMenus" :key="menuItem.route" 
@@ -19,24 +19,25 @@
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <router-link class="navbar-brand font26" to="/admin">
-                        <span class="lato fw300">24&nbsp;
-                            <span class="lato fw700">h<i class="fa fa-clock-o"></i>urs</span>
-                        </span>
-                    </router-link>
-
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <router-link class="navbar-brand font26" to="/admin">
+                            <span class="lato fw300">24&nbsp;
+                                <span class="lato fw700">h<i class="fa fa-clock-o"></i>urs</span>
+                            </span>
+                        </router-link>
+                       
                         <router-link v-for="menuItem in topMenus" :key="menuItem.route" 
                         active-class="wpsr-tab-active" 
                         exact             
                         :to="{ name: menuItem.route }">
                             {{ menuItem.title }}
                         </router-link>
+                        
                         <!-- <a href="#" @click.prevent="logoutUser">
                             <i class="clip-exit"></i> &nbsp;Log Out
                         </a> -->
@@ -89,7 +90,8 @@
                     <div class="list-inline margin-top-20 sidebar-btn">
                      
                         <div id="menu1" class="arrow-btn">
-                            <v-icon dark>mdi-arrow-left</v-icon>
+                            <!-- <v-icon>mdi-arrow-left</v-icon> -->
+                            <span class="material-icons back-btn">keyboard_backspace</span>
                         </div>
 
                     </div>
@@ -136,26 +138,15 @@
 
 <style lang="scss">
 
-.sidebar-btn {
-    color: #ffffff; 
-    .arrow-btn{
-        margin:5px;
+.arrow-btn{
+    .back-btn{
+        cursor: pointer;
+        color:#ffffff;
+        margin: 0px 0px 8px 8px;
     }
 }
 
-.wpsr_social_review_global{
-    // display:flex;
-    // align-items: center;
-    // justify-content: center;
-    .wpsr_social_review_global_main_nav{
-    background-color: #5525d9;
-    padding: 0 20px;
-    span{
-      color: #fff;
-      font-size: 18px;
-      padding-right: 50px;
-      font-weight: 700;
-    }
+.navbar-header{
     a{
       text-decoration: none;
       color: #fff;
@@ -178,8 +169,9 @@
         box-shadow: none;
       }
     }
-  }
+  
 }
+
 </style>
 
 <script>

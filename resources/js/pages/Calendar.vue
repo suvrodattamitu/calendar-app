@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="calendar-container">
         <v-app>
             <v-row class="fill-height">
                 <v-col>
@@ -10,10 +10,10 @@
                             Today
                         </v-btn>
                         <v-btn fab text small color="grey darken-2" @click="prev">
-                            <v-icon small>mdi-chevron-left</v-icon>
+                            <span class="material-icons">navigate_before</span>
                         </v-btn>
                         <v-btn fab text small color="grey darken-2" @click="next">
-                            <v-icon small>mdi-chevron-right</v-icon>
+                            <span class="material-icons">navigate_next</span>
                         </v-btn>
                         <v-toolbar-title v-if="$refs.calendar">
                             {{ $refs.calendar.title }}
@@ -28,7 +28,7 @@
                                 v-on="on"
                             >
                                 <span>{{ typeToLabel[type] }}</span>
-                                <v-icon right>mdi-menu-down</v-icon>
+                                <span class="material-icons">keyboard_arrow_down</span>
                             </v-btn>
                             </template>
                             <v-list>
@@ -94,12 +94,12 @@
                             dark
                             >
                             <v-btn icon @click="editEvent(selectedEvent)">
-                                <v-icon>mdi-pencil</v-icon>
+                                <span class="material-icons">edit</span>
                             </v-btn>
                             <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                             <v-spacer></v-spacer>
                             <v-btn icon @click="deleteEvent(selectedEvent.id)">
-                                <v-icon>mdi-delete</v-icon>
+                                <span class="material-icons">delete</span>
                             </v-btn>
                             </v-toolbar>
 
@@ -132,6 +132,12 @@
         </v-app>
     </div>
 </template>
+
+<style lang="scss">
+  .calendar-container{
+    margin-top:60px;
+  }
+</style>
 
 <script>
   export default {
@@ -215,19 +221,19 @@
 
       getEvents(){
 
-          axios.get('/all-events')
-              .then(response => {
+        axios.get('/all-events')
+            .then(response => {
 
-                this.events = response.data.events;
-                console.log(response.data);
+              this.events = response.data.events;
+              console.log(response.data);
 
-              })
-              .catch(error => {
-                  console.log(error);
-              })
-              .then(() => {
-                  
-              });
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .then(() => {
+                
+            });
 
       },
 

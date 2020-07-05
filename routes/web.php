@@ -21,5 +21,8 @@ Route::post('/update-event','Calendar\CalendarController@updateEvent');
 Route::post('/create-event','Calendar\CalendarController@createEvent');
 Route::delete('/delete-event/{id}','Calendar\CalendarController@deleteEvent');
 
+//todos
+Route::get('/all-projects','Todos\ProjectController@getTodoProjects');
+
 
 

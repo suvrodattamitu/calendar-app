@@ -4,8 +4,11 @@
 // Variables
 @import 'variables';
 
-// Bootstrap
-// @import '~bootstrap/scss/bootstrap';
+// Import Libraries
 
+@import '~element-ui/lib/theme-chalk/message.css';
+@import '~element-ui/lib/theme-chalk/message-box.css';
+
+@import '~element-ui/lib/theme-chalk/notification.css';
 
 

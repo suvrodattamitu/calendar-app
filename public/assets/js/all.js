@@ -32967,5 +32967,3 @@ function setNavigation() {
 		window.FastClick = FastClick;
 	}
 }());
-
-//# sourceMappingURL=all.js.map

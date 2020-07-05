@@ -1,4 +1,4 @@
-import Todos from './../pages/Todos';
+import Todos from './../pages/todos/projects';
 import Budgets from './../pages/Budgets';
 import Dashboard from './../pages/Dashboard';
 import Calendar from './../pages/Calendar';
