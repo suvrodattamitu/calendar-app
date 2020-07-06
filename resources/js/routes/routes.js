@@ -1,7 +1,8 @@
-import Todos from './../pages/todos/projects';
+import Todos from './../pages/todos/project/projects';
 import Budgets from './../pages/Budgets';
 import Dashboard from './../pages/Dashboard';
 import Calendar from './../pages/Calendar';
+import ProjectDetails from './../pages/todos/project/project_crud/show_project';
 
 export const routes = [
 
@@ -21,6 +22,12 @@ export const routes = [
         path: '/admin/todos',
         component: Todos,
         meta:{title: 'Todos'}
+    },
+    {
+        name: 'project',
+        path: '/admin/todos/project/:project_slug',
+        component: ProjectDetails,
+        meta:{title: 'Project Details'}
     },
     {
         name: 'budgets',

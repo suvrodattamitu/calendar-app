@@ -25,6 +25,8 @@ Route::delete('/delete-event/{id}','Calendar\CalendarController@deleteEvent');
 Route::get('/all-projects','Todos\ProjectController@getTodoProjects');
 Route::post('/add-project','Todos\ProjectController@addTodoProject');
 Route::get('/project/{slug}','Todos\ProjectController@editTodoProject');
+Route::post('/project/{slug}','Todos\ProjectController@updateTodoProject');
+Route::get('/get-project-tasks','Todos\ProjectController@showTodoProjectTasks');
 
 
 

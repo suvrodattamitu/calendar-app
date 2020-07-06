@@ -85,12 +85,67 @@ class ProjectController extends Controller
 
     public function editTodoProject($slug){
 
-        $project = Project::where('slug',$slug)->first();
         
+        $project = Auth::user()->projects()->where('slug',$slug)->first();
+
         return response()->json([
 
             'message'   => 'Projects found successfully!',
             'project'  =>  $project,
+
+        ]);
+
+    }
+
+    public function updateTodoProject($slug,Request $request){
+
+        try {
+            
+            $request->validate([
+                'name'          =>  'required',
+                'description'   =>  'required',
+                'duedate'       =>  'required',
+            ]);
+
+            $project = Auth::user()->projects()->where('slug',$slug)->first();
+
+            $project->update([
+                'name'          => $request->name,
+                'description'   => $request->description,
+                'duedate'       => $request->duedate,
+            ]);
+
+            return response()->json([
+
+                'message'   => 'Projects found successfully!',
+                'project'  =>  $project,
+
+            ]);
+
+        }catch (ValidationException $exception) {
+            return response()->json([
+                'status' => 'error',
+                'msg'    => 'Error',
+                'errors' => $exception->errors(),
+            ], 422);
+        }
+
+
+    }
+
+    public function showTodoProjectTasks(){
+
+        $paginate = isset($_REQUEST['paginate'])?$_REQUEST['paginate']:10;
+        $search   = isset($_REQUEST['s'])?$_REQUEST['s']:'';
+        $slug     = isset($_REQUEST['slug'])?$_REQUEST['slug']:'';
+
+        $project    = Auth::user()->projects()->with(['tasks','user'])->where('slug',$slug)->first();
+
+        return response()->json([
+
+            'message'   =>  'Projects found successfully!',
+            'project'   =>  $project,
+            'slug'      =>  $slug
 
         ]);
 
