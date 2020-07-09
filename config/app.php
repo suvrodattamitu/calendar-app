@@ -1,5 +1,7 @@
 <?php
 
+//make change from .env
+
 return [
 
     /*
@@ -119,7 +121,8 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    //change this as your db setup from .env
+    'key' => env('APP_KEY','base64:M1N5kejJhBobJgGmv+NlqW1vqAMHDWQTJlQ/K5lQdu4='),
 
     'cipher' => 'AES-256-CBC',
 

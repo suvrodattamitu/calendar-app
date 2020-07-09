@@ -13771,13 +13771,6 @@ and (orientation: landscape)
     /*line-height: 130%;*/
     /*margin-bottom: 20px;*/
 /*}*/
-h1, h2, h3, h4, h5, h6 {
-    color: #e2e2e2;
-}
-
-.h1 .small, .h1 small, .h2 .small, .h2 small, .h3 .small, .h3 small, .h4 .small, .h4 small, .h5 .small, .h5 small, .h6 .small, .h6 small, h1 .small, h1 small, h2 .small, h2 small, h3 .small, h3 small, h4 .small, h4 small, h5 .small, h5 small, h6 .small, h6 small {
-    color: #e2e2e2;
-}
 
 #footer {
     color: #C2C6CC;

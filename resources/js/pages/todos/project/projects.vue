@@ -5,23 +5,21 @@
         <el-row style="margin-top:60px;">
             <el-col :md="{span: 22, offset: 1}">
                 <!-- start: PAGE HEADER -->
-                <div class="el-row">
+                <!-- <div class="el-row">
                     <div class="col-sm-12">
-                        <!-- start: PAGE TITLE & BREADCRUMB -->
                         <ol class="breadcrumb">
                             <li>
                                 <i class="clip-file"></i>
                                 <router-link to="/admin">
-                                    Dashboard
+                                    Todos
                                 </router-link>
                             </li>
                             <li class="active">
-                                Projects / All Projects
+                                Projects
                             </li>
                         </ol>
-                        <!-- end: PAGE TITLE & BREADCRUMB -->
                     </div>
-                </div>
+                </div> -->
                 <!-- end: PAGE HEADER -->
 
                 <!-- start: PAGE CONTENT -->
@@ -344,7 +342,6 @@ export default {
             this.openEditModal = val;
         },
 
-
         $dateFormat(date) {
 
             let format = 'MMM DD, YYYY';
@@ -361,8 +358,6 @@ export default {
           this.addProjectModal = true;
 
         },
-
-        
 
         //table selection checkbox
         handleSelectionChange(val) {
@@ -397,21 +392,24 @@ export default {
           let search  = this.search_string;
 
           axios.get('/all-projects/?page='+page+'&paginate='+perPage+'&s='+search)
-              .then(response => {
+                .then(response => {
 
-                let all_projects  = response.data.projects.data;
-                this.projects     = all_projects;
-                this.total        = response.data.total;
-                this.hasProjects  = all_projects.length;
-                console.log(all_projects);
+                    let all_projects  = response.data.projects.data;
+                    this.projects     = all_projects;
+                    this.total        = response.data.total;
+                    this.hasProjects  = all_projects.length;
+                    console.log(all_projects);
 
-              })
-              .catch(error => {
-                console.log(error);
-              })
-              .then(() => {
-                this.loading = false;  
-              });
+                })
+                .catch(error => {
+                    // if(error.response.status === 500){
+                    //     this.allProjects();
+                    // }
+                    console.log('errors found ',error.response);
+                })
+                .then(() => {
+                    this.loading = false;  
+                });
 
         },
 
@@ -425,37 +423,40 @@ export default {
 
         deleteNow() {
             
-            let id = this.deletingData.id;
+            let slug = this.deletingData.slug;
 
-            axios.delete('/category/delete/'+id)
-            .then(response => {
-                
-                this.$notify({
-                    title: 'Success',
-                    message: 'Successfully Deleted!',
-                    type: 'success',
-                    position: 'top-right'
+            axios.delete('/project/delete/'+slug)
+                .then(response => {
+                    
+                    console.log(response.data);
+
+                    this.$notify({
+                        title: 'Success',
+                        message: 'Successfully Deleted!',
+                        type: 'success',
+                        position: 'top-right'
+                    });
+
+                    this.allProjects();
+
+                })
+                .catch(error => {
+
+                    this.$notify({
+
+                        title: 'Error',
+                        message: error.responseJSON?error.responseJSON.data.message:'Error',
+                        type: 'error',
+                        position: 'top-right'
+
+                    });
+
+                })
+                .then(() => {
+
+                    this.deleteDialogVisible = false;
+
                 });
-                this.allCategories();
-
-            })
-            .catch(error => {
-
-                this.$notify({
-
-                    title: 'Error',
-                    message: error.responseJSON?error.responseJSON.data.message:'Error',
-                    type: 'error',
-                    position: 'top-right'
-
-                });
-
-            })
-            .then(() => {
-
-                this.deleteDialogVisible = false;
-
-            });
         },
 
         //categories crud update
@@ -518,7 +519,7 @@ export default {
 
             let bulkAction = this.bulkValue;
 
-            axios.post('/categories/deletemultiple', {
+            axios.post('/projects/delete-multiple', {
 
                 rows: this.multipleSelection,
                 bulk: bulkAction, 
@@ -526,6 +527,7 @@ export default {
             })
                 .then(response => {
 
+                    console.log(response.data);
                     this.$notify({
 
                         title: 'Success',
@@ -535,7 +537,7 @@ export default {
 
                     });
 
-                    this.allCategories();
+                    this.allProjects();
 
                 })
                 .catch(error => {

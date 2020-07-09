@@ -1,8 +1,11 @@
 import Todos from './../pages/todos/project/projects';
-import Budgets from './../pages/Budgets';
+import Budgets from './../pages/budgets/Budgets';
 import Dashboard from './../pages/Dashboard';
 import Calendar from './../pages/Calendar';
 import ProjectDetails from './../pages/todos/project/project_crud/show_project';
+
+import Expenses from './../pages/budgets/Expenses';
+import Incomes from './../pages/budgets/Incomes';
 
 export const routes = [
 
@@ -34,6 +37,18 @@ export const routes = [
         path: '/admin/budgets',
         component: Budgets,
         meta:{title: 'Budgets'}
-    }
+    },
+    {
+        name: 'incomes',
+        path: '/admin/budgets/incomes',
+        component: Incomes,
+        meta:{title: 'Incomes'}
+    },
+    {
+        name: 'expenses',
+        path: '/admin/budgets/expenses',
+        component: Expenses,
+        meta:{title: 'Expenses'}
+    },
 
 ];

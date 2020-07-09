@@ -21,7 +21,7 @@ class CreateTasksTable extends Migration
             $table->string('slug');
             $table->LongText('description');
             $table->date('duedate');
-            $table->boolean('completed')->default(0);
+            $table->string('completed')->default('completed');
             $table->timestamps();
             $table->softDeletes();
         });

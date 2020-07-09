@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-
 use Illuminate\Validation\ValidationException;
-
 use App\Model\Project;
+
 
 class ProjectController extends Controller
 {
@@ -21,12 +20,14 @@ class ProjectController extends Controller
 
         $Query   = Auth::user()->projects();
 
-        // if (!empty($search)) {
+        if (!empty($search)) {
 
-        //     $Query = $Query->where('name', 'LIKE', "%{$search}%");
-        //     $Query->orWhere('id', 'LIKE', "%{$search}%");
+            $Query = $Query->where('name', 'LIKE', "%{$search}%");
+            $Query = $Query->orWhere('description', 'LIKE', "%{$search}%");
+            $Query = $Query->orWhere('completed', 'LIKE', "%{$search}%");
+            $Query->orWhere('id', 'LIKE', "%{$search}%");
           
-        // }
+        }
 
         $total            = $Query->count();
         $all_projects     = $Query->orderBy('id', 'desc')->paginate($paginate);
@@ -39,15 +40,6 @@ class ProjectController extends Controller
             'search'    =>  $search
 
         ]);
-
-
-
-        // $projects = Auth::user()->projects()->get();
-        // return response()->json([
-
-        //     'projects'  => $projects
-
-        // ],200);
 
     }
 
@@ -148,6 +140,36 @@ class ProjectController extends Controller
             'slug'      =>  $slug
 
         ]);
+
+    }
+
+    public function deleteTodoProject($project_slug){
+
+        $project = Auth::user()->projects()->where('slug',$project_slug)->delete();
+
+        return response()->json([
+
+            'message'   =>  'Project deleted successfully!',
+            'project'   =>  $project,
+            'slug'      =>  $project_slug
+
+        ],200);
+
+    }
+
+    public function deleteMultipleTodoProjects(Request $request){
+
+        $projects = $request->rows;
+
+        foreach($projects as $project){
+            $project = Auth::user()->projects()->where('slug',$project['slug'])->delete();
+        }
+
+        return response()->json([
+
+            'message'   =>  'Projects deleted successfully!',
+
+        ],200);
 
     }
 

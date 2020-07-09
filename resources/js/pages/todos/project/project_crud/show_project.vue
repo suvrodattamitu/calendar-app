@@ -11,12 +11,12 @@
                         <ol class="breadcrumb">
                             <li>
                                 <i class="clip-file"></i>
-                                <router-link to="/admin">
-                                    Dashboard
+                                <router-link to="/admin/todos">
+                                    Projects
                                 </router-link>
                             </li>
                             <li class="active">
-                                Projects / All Projects
+                                {{project_slug}}
                             </li>
                         </ol>
                         <!-- end: PAGE TITLE & BREADCRUMB -->
@@ -24,15 +24,17 @@
                 </div>
 
                 <div class="el-row">
-                    <div class="col-sm-12">
-                        <h2>{{ project.name }}</h2>
-                        <p>Posted by {{user.name}} at {{ project.created_at }}</p>
-                        <p>{{ project.description }}</p>
+                    <div class="col-sm-12 header-introduction">
+                        <div>
+                            <h2>{{ project.name }}</h2>
+                            <p>{{ project.description }}</p>
+                        </div>
+                        <p>Posted by {{user.name}} at {{ $getDate( project.created_at) }}</p>
                     </div>
                 </div>
 
                 <!-- start: PAGE CONTENT -->
-                <div v-if="!has_tasks.length">
+                <div v-if="!has_tasks">
                     <welcome :additionalData="welcomeData" @createNewOne="createTask"></welcome>
                 </div>
 
@@ -61,12 +63,12 @@
 
                             <div class="payform_action search_action">
 
-                                <el-input @keyup.enter.native="allProjects()" size="small" placeholder="Search" v-model="search_string" class="input-with-select">
-                                    <el-button @click="allProjects()" slot="append" icon="el-icon-search"></el-button>
+                                <el-input @keyup.enter.native="getProjectWithTasksBySlug()" size="small" placeholder="Search" v-model="search_string" class="input-with-select">
+                                    <el-button @click="getProjectWithTasksBySlug()" slot="append" icon="el-icon-search"></el-button>
                                 </el-input>
 
-                                <el-button class="payform_action_button" @click="createProject()" size="small" type="primary">
-                                    {{ 'Add New Project'  }}
+                                <el-button class="payform_action_button" @click="createTask()" size="small" type="primary">
+                                    {{ 'Add New Task'  }}
                                 </el-button>
 
                             </div>
@@ -78,7 +80,7 @@
 
                     <!--table start-->
                     <div class="payform_section_body">
-                        <el-table style="width: 100%" :data="projects" @selection-change="handleSelectionChange" ref="multipleTable">
+                        <el-table style="width: 100%" :data="tasks" @selection-change="handleSelectionChange" ref="multipleTable">
                         
                             <el-table-column type="selection" width="55">
                             </el-table-column>
@@ -158,28 +160,80 @@
             </el-col>
         </el-row>
 
+        <!-- Delete form Confimation Modal -->
+        <el-dialog
+            title="Are You Sure, You want to delete selected data?"
+            :visible.sync="deleteDialogVisible"
+            width="60%">
+            <div class="modal_body">
+                <p>All the status assoscilate with this will be deleted</p>                     
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="deleteDialogVisible = false">Cancel</el-button>
+                <el-button type="primary" @click="deleteNow()">Confirm</el-button>
+            </span>
+        </el-dialog>
+
+        <!-- Delete Multiple form Confimation Modal -->
+        <el-dialog
+            title="Are You Sure, You want to change these selected data?"
+            :visible.sync="selectVisibleForBulkAction"
+            width="60%">
+            <div class="modal_body">
+                <p>All the status assoscilate with this will be {{ bulkValue }}</p>                     
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="selectVisibleForBulkAction = false">Cancel</el-button>
+                <el-button type="primary" @click="multipleSelectActionForBulkAction()">Confirm</el-button>
+            </span>
+        </el-dialog>
+
         <add-task 
             v-if="openTaskModal"
             :openModal="openTaskModal"
-            :form="form"
+            :form="taskForm"
             :formLabelWidth="formLabelWidth"
-            @openProjectAddModal="openDialogModal"
-            @addedProject="addedProject"
+            :projectSlug="project_slug"
+            @openTaskAddModal="openDialogModal"
+            @addedTask="addedTask"
         >
         </add-task>
 
+        <edit-task
+            v-if="openEditModal"
+            :openModalEdit="openEditModal"
+            :form="taskForm"
+            :formLabelWidth="formLabelWidth"
+            @openTaskEditModal="openEditDialogModal"
+            @editedTask="editedTask"
+        >
+
+        </edit-task>
+
     </div>
 </template>
+
+
+<style lang="scss">
+
+    .header-introduction{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+</style>
 
 <script>
 
 import Welcome from './../../../../Common/Welcome';
 import moment from 'moment';
 import AddTask from './../../task/task_crud/add_task';
+import EditTask from './../../task/task_crud/edit_task';
 
 export default {
 
-    components:{Welcome,AddTask},
+    components:{Welcome,AddTask,EditTask},
 
     data() {
 
@@ -187,8 +241,11 @@ export default {
 
             loading:false,
             project_slug:'',
+            //table pagination
             per_page: 10,
             page_number: 1,
+            total: 0,
+            pageSizes: [5,10, 20, 30, 40, 50, 100, 200],
             search_string:'',
             project:{},
             tasks:[],
@@ -198,13 +255,28 @@ export default {
               'name':'Task'
             },
 
+            //bulk options
+            bulkValue:'',
+            bulkOptions:[{
+                value: 'delete',
+                label: 'Delete All'
+            }],
+
             user:{},
 
             errors:{},
-            form:{},
+            taskForm:{
+                name:'',
+                description:'',
+                duedata:''
+            },
             openTaskModal:false,
-
+            openEditModal:false,
             formLabelWidth: '120px',
+
+            deletingData : false,
+            deleteDialogVisible : false,
+            selectVisibleForBulkAction:false,
 
         }
 
@@ -212,10 +284,92 @@ export default {
 
     methods:{
 
+        $getDate(str){
+            if(str){
+                return this.$dateFormat(str.substring(0, 10));
+            }
+        },
+
+        confirmEdit(editData){
+
+            this.loading = true;
+            this.errors = [];
+
+            axios.post('/project/task/'+editData.slug,{'project_slug':this.project_slug})
+                .then(response => {
+
+                    this.openEditModal = true;
+                    this.taskForm = response.data.task;
+
+                })
+                .catch(error => {
+
+                    console.log(error);
+
+                })
+                .then(() => {
+
+                    this.loading = false; 
+
+                });
+
+
+      
+        },
+
+        editedTask(){
+            this.openEditModal = false;
+            this.allProjects();
+        },
+
+        openEditDialogModal(val){
+            this.openEditModal = val;
+        },
+
+        //table selection checkbox
+        handleSelectionChange(val) {
+
+          this.multipleSelection = val;
+            
+        },
+        
+        //table pagination
+        handleSizeChange(val) {
+
+          this.per_page = val;
+          this.getProjectWithTasksBySlug();
+
+        },
+
+        handleCurrentChange(val) {
+
+            this.page_number = val;
+            this.getProjectWithTasksBySlug();
+
+        },
+
+        $dateFormat(date) {
+
+            let format = 'MMM DD, YYYY';
+            let dateString = (date === undefined) ? null : date;
+            let dateObj = moment(dateString);
+            return dateObj.isValid() ? dateObj.format(format) : null;
+
+        },
+
+        addedTask(){
+            this.openTaskModal = false;
+            this.getProjectWithTasksBySlug();
+        },
+
+        openDialogModal(val){
+            this.openTaskModal = val;
+        },
+
         createTask(){
 
           this.errors = [];
-          this.form = {};
+          this.taskForm = {};
           this.openTaskModal = true;       
 
         },
@@ -236,7 +390,7 @@ export default {
                     this.tasks   = project.tasks;
                     this.has_tasks = project.tasks.length;
                     this.user    = project.user;
-                    console.log(response);
+                    console.log(project.tasks.length);
 
                 })
                 .catch(error => {
@@ -244,6 +398,119 @@ export default {
                 })
                 .then(() => {
                     this.loading = false;  
+                });
+
+        },
+
+        //categories crud delete
+        confirmDelete(deleteData) {
+            console.log(deleteData);
+            this.deletingData = deleteData;
+            this.deleteDialogVisible = true;
+
+        },
+
+        deleteNow() {
+            
+            let slug = this.deletingData.slug;
+
+            axios.post('/task/delete/'+slug,{'project_slug':this.project_slug})
+                .then(response => {
+                    
+                    console.log(response.data);
+
+                    this.$notify({
+                        title: 'Success',
+                        message: 'Successfully Deleted!',
+                        type: 'success',
+                        position: 'top-right'
+                    });
+
+                    this.getProjectWithTasksBySlug();
+
+                })
+                .catch(error => {
+
+                    this.$notify({
+
+                        title: 'Error',
+                        message: error.responseJSON?error.responseJSON.data.message:'Error',
+                        type: 'error',
+                        position: 'top-right'
+
+                    });
+
+                })
+                .then(() => {
+
+                    this.deleteDialogVisible = false;
+
+                });
+        },
+
+        //bulk actions dialog modal
+        doAction() {
+
+            if (!this.multipleSelection.length || !this.bulkValue) {
+
+              this.$notify({
+
+                  title: 'Error',
+                  message: 'Please select one to continue',
+                  type: 'error',
+                  position: 'top-right'
+
+              });
+
+            }else if (this.bulkValue == 'delete') {
+
+                this.selectVisibleForBulkAction = true;
+            
+            }
+
+        },
+
+        //bulk actions action 
+        multipleSelectActionForBulkAction() {
+
+            let bulkAction = this.bulkValue;
+
+            axios.post('/tasks/delete-multiple', {
+
+                rows: this.multipleSelection,
+                bulk: bulkAction,
+                project_slug: this.project_slug 
+
+            })
+                .then(response => {
+
+                    console.log(response.data);
+                    this.$notify({
+
+                        title: 'Success',
+                        message: bulkAction+' successfull\'y!',
+                        type: 'success',
+                        position: 'top-right'
+
+                    });
+
+                    this.getProjectWithTasksBySlug();
+
+                })
+                .catch(error => {
+                    this.$notify({
+
+                        title: 'Error',
+                        message: 'Can\'t '+bulkAction,
+                        type: 'error',
+                        position: 'top-right'
+
+                    });
+                })
+                .then(() => {
+
+                    this.selectVisibleForBulkAction = false;
+
                 });
 
         }
