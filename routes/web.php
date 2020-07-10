@@ -28,9 +28,24 @@ Route::get('/get-project-tasks','Todos\ProjectController@showTodoProjectTasks');
 Route::delete('/project/delete/{project_slug}','Todos\ProjectController@deleteTodoProject');
 Route::post('/projects/delete-multiple','Todos\ProjectController@deleteMultipleTodoProjects');
 
+//tasks
 Route::post('/add-task','Todos\TaskController@addTodoTask');
 Route::post('/project/task/{task_slug}','Todos\TaskController@editTodoTask');
 Route::post('/task/delete/{task_slug}','Todos\TaskController@deleteTodoTask');
 Route::post('/tasks/delete-multiple','Todos\TaskController@deleteMultipleTodoTasks');
 
+//incomes
+Route::get('/all-incomes','Budgets\IncomeController@getBudgetIncomes');
+Route::post('/add-income','Budgets\IncomeController@addBudgetIncome');
+Route::get('/income/{income_id}','Budgets\IncomeController@editBudgetIncome');
+Route::post('/income/{income_id}','Budgets\IncomeController@updateBudgetIncome');
+Route::delete('/income/delete/{income_id}','Budgets\IncomeController@deleteBudgetIncome');
+Route::post('/incomes/delete-multiple','Budgets\IncomeController@deleteMultipleTodoIncome');
 
+//expenses
+Route::get('/all-expenses','Budgets\ExpenseController@getBudgetExpenses');
+Route::post('/add-expense','Budgets\ExpenseController@addBudgetExpense');
+Route::get('/expense/{expense_id}','Budgets\ExpenseController@editBudgetExpense');
+Route::post('/expense/{expense_id}','Budgets\ExpenseController@updateBudgetExpense');
+Route::delete('/expense/delete/{expense_id}','Budgets\ExpenseController@deleteBudgetExpense');
+Route::post('/expenses/delete-multiple','Budgets\ExpenseController@deleteMultipleTodoExpense');
