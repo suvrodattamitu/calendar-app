@@ -2148,7 +2148,6 @@ input,
 optgroup,
 select,
 textarea {
-  color: inherit;
   font: inherit;
   margin: 0;
 }
@@ -6253,11 +6252,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     border-radius: 4px;
   }
 }
-@media (min-width: 992px) {
+/* @media (min-width: 992px) {
   .navbar-header {
     float: left;
   }
-}
+} */
 .navbar-collapse {
   overflow-x: visible;
   padding-right: 15px;
@@ -7411,9 +7410,9 @@ button.list-group-item-success {
   color: #468847;
 }
 a.list-group-item-success .list-group-item-heading,
-button.list-group-item-success .list-group-item-heading {
+/* button.list-group-item-success .list-group-item-heading {
   color: inherit;
-}
+} */
 a.list-group-item-success:hover,
 button.list-group-item-success:hover,
 a.list-group-item-success:focus,
@@ -7440,9 +7439,9 @@ button.list-group-item-info {
   color: #3a87ad;
 }
 a.list-group-item-info .list-group-item-heading,
-button.list-group-item-info .list-group-item-heading {
+/* button.list-group-item-info .list-group-item-heading {
   color: inherit;
-}
+} */
 a.list-group-item-info:hover,
 button.list-group-item-info:hover,
 a.list-group-item-info:focus,
@@ -7465,13 +7464,13 @@ button.list-group-item-info.active:focus {
   background-color: #fcf8e3;
 }
 a.list-group-item-warning,
-button.list-group-item-warning {
+/* button.list-group-item-warning {
   color: #c09853;
-}
+} */
 a.list-group-item-warning .list-group-item-heading,
-button.list-group-item-warning .list-group-item-heading {
+/* button.list-group-item-warning .list-group-item-heading {
   color: inherit;
-}
+} */
 a.list-group-item-warning:hover,
 button.list-group-item-warning:hover,
 a.list-group-item-warning:focus,
@@ -7498,9 +7497,9 @@ button.list-group-item-danger {
   color: #b94a48;
 }
 a.list-group-item-danger .list-group-item-heading,
-button.list-group-item-danger .list-group-item-heading {
+/* button.list-group-item-danger .list-group-item-heading {
   color: inherit;
-}
+} */
 a.list-group-item-danger:hover,
 button.list-group-item-danger:hover,
 a.list-group-item-danger:focus,
@@ -15683,6 +15682,9 @@ and (orientation: landscape) {
 
 }
 
+.el-button{
+  color:#ffffff !important;
+}
 .container{
   padding: 0px !important;
 }

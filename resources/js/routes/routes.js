@@ -13,12 +13,13 @@ export const routes = [
         name:'dashboard',
         path: '/admin',
         component: Dashboard,
+        meta:{title: 'Dashboard'}
     },
     {
         name: 'calendar',
         path: '/admin/calendar',
         component: Calendar,
-        meta:{title: 'calendar'}
+        meta:{title: 'Calendar'}
     },
     {
         name: 'todos',

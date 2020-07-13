@@ -49,3 +49,6 @@ Route::get('/expense/{expense_id}','Budgets\ExpenseController@editBudgetExpense'
 Route::post('/expense/{expense_id}','Budgets\ExpenseController@updateBudgetExpense');
 Route::delete('/expense/delete/{expense_id}','Budgets\ExpenseController@deleteBudgetExpense');
 Route::post('/expenses/delete-multiple','Budgets\ExpenseController@deleteMultipleTodoExpense');
+
+//budgets
+Route::get('/get-budgets','Budgets\BudgetController@getBudgets');

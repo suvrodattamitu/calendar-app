@@ -5,18 +5,21 @@
         <el-row style="margin-top:60px;">
             <el-col :md="{span: 22, offset: 1}">
                 <!-- start: PAGE HEADER -->
-               
-                <ol class="breadcrumb">
-                    <li>
-                        <i class="clip-file"></i>
-                        <router-link to="/admin/budgets">
-                            Budgets
-                        </router-link>
-                    </li>
-                    <li class="active">
-                        Expenses
-                    </li>
-                </ol>
+                <div class="el-row">
+                    <div class="col-sm-12">
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="clip-file"></i>
+                                <router-link to="/admin/budgets">
+                                    Budgets
+                                </router-link>
+                            </li>
+                            <li class="active">
+                                Expenses
+                            </li>
+                        </ol>
+                    </div> 
+                </div>
                     
                 <!-- end: PAGE HEADER -->
 

@@ -1,14 +1,17 @@
 <template>
-    <div class="calendar-container">
+    <div class="calendar-container" v-loading="loading" element-loading-text="Loading...Please Wait...">
         <v-app>
-            <v-row class="fill-height">
-                <v-col>
+          <el-row>
+            <el-col :span="22" :offset="1" class="card-col">
                     <v-sheet height="64">
                         <v-toolbar flat color="white">
-                        <v-btn color="primary" class="mr-4" @click.stop="dialog=true" dark>New Event</v-btn>
-                        <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
+                        
+                        <el-button type="primary" size="medium" @click="openEventModal">New Event</el-button>
+                        <!-- <el-button type="primary" size="medium" @click="setToday">Today</el-button> -->
+                        <!-- <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
                             Today
-                        </v-btn>
+                        </v-btn> -->
+
                         <v-btn fab text small color="grey darken-2" @click="prev">
                             <span class="material-icons">navigate_before</span>
                         </v-btn>
@@ -55,11 +58,22 @@
                         <v-container>
                           <v-form @submit.prevent="addEvent">
                             <v-text-field v-model="name" type="text" label="Event Name"></v-text-field>
+                            <p class="error-warning" v-if="errors.name">{{errors.name[0]}}</p>
                             <v-text-field v-model="details" type="text" label="Event Details"></v-text-field>
+                            <p class="error-warning" v-if="errors.details">{{errors.details[0]}}</p>
                             <v-text-field v-model="start" type="date" label="Start Date"></v-text-field>
+                            <p class="error-warning" v-if="errors.start">{{errors.start[0]}}</p>
                             <v-text-field v-model="end" type="date" label="End Date"></v-text-field>
-                            <v-text-field v-model="color" type="color" label="Event Color"></v-text-field>
-                            <v-btn type="submit" color="primary" class="mr-4" @click.stop="dialog=false">Create Event</v-btn>
+                             <p class="error-warning" v-if="errors.end">{{errors.end[0]}}</p>
+                            <!-- <v-text-field v-model="color" type="color" label="Event Color"></v-text-field> -->
+                            <p class="demonstration">Event Color</p>
+                            <el-color-picker
+                              v-model="color"
+                              show-alpha
+                              :predefine="predefineColors">
+                            </el-color-picker><br>
+                            <p class="error-warning" v-if="errors.color">{{errors.color[0]}}</p>
+                            <v-btn type="submit" color="primary" class="mr-4" >Create Event</v-btn>
                           </v-form>
                         </v-container>
                       </v-card>
@@ -109,14 +123,15 @@
                                   <span v-if="currentlyEditing !== selectedEvent.id">
                                     {{ selectedEvent.details }}
                                   </span>
-                                  <textarea 
+                                  <el-input
+                                    type="textarea"
+                                    :rows="2"
                                     v-else
-                                    type="text"
                                     v-model="selectedEvent.details"
                                     placeholder="Add Note"
                                   >
-
-                                  </textarea>
+                                  </el-input>
+                                  <p class="error-warning" v-if="errors.details">{{errors.details[0]}}</p>
                               </form>
                             </v-card-text>
 
@@ -127,8 +142,8 @@
                         </v-card>
                         </v-menu>
                     </v-sheet>
-                </v-col>
-            </v-row>
+              </el-col>
+          </el-row>
         </v-app>
     </div>
 </template>
@@ -136,6 +151,9 @@
 <style lang="scss">
   .calendar-container{
     margin-top:60px;
+    .v-form{
+      margin: 38px;
+    }
   }
 </style>
 
@@ -167,7 +185,20 @@
       dialog:false,
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
       names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday Birthday Birthday Birthday Birthday Birthday', 'Conference', 'Party'],
-    
+
+      predefineColors: [
+        '#ff4500',
+        '#ff8c00',
+        '#ffd700',
+        '#90ee90',
+        '#00ced1',
+        '#1e90ff',
+        '#c71585',
+        '#c7158577'
+      ],
+      errors:[],
+      loading:false
+
     }),
 
     mounted () {
@@ -177,6 +208,11 @@
 
     },
     methods: {
+
+      openEventModal(){
+        this.dialog = true;
+        this.errors = [];
+      },
 
       viewDay ({ date }) {
         this.focus = date
@@ -197,11 +233,12 @@
 
 
       editEvent(ev){
+        this.errors = [];
         this.currentlyEditing = ev.id;
       },
 
       updateEvent(ev){
-
+        this.errors = [];
         axios.post('/update-event',ev)
             .then(response => {
 
@@ -209,8 +246,20 @@
               this.currentlyEditing = null;
               this.getEvents();
 
+              this.$notify({
+
+                  title: 'Success',
+                  message:'Event deleted successfull\'y!',
+                  type: 'success',
+                  position: 'top-right'
+
+              });
+
             })
             .catch(error => {
+                if(error.response){
+                  this.errors = error.response.data.errors;
+                }
                 console.log(error);
             })
             .then(() => {
@@ -220,7 +269,7 @@
       },
 
       getEvents(){
-
+        this.loading = true;
         axios.get('/all-events')
             .then(response => {
 
@@ -229,10 +278,10 @@
 
             })
             .catch(error => {
-                console.log(error);
+              console.log(error);
             })
             .then(() => {
-                
+              this.loading = false;
             });
 
       },
@@ -244,6 +293,16 @@
             
             this.selectedOpen = false;
             this.currentlyEditing = null;
+
+            this.$notify({
+
+                title: 'Success',
+                message:'Event deleted successfull\'y!',
+                type: 'success',
+                position: 'top-right'
+
+            });
+
             this.getEvents();
 
           })
@@ -266,13 +325,29 @@
           color:this.color
         };
 
+        this.errors = [];
+
         axios.post('/create-event',info)
             .then(response => {
 
+
+              this.dialog = false;
               this.getEvents();
+              this.$notify({
+                  title: 'Success',
+                  message: 'Event added successfully!',
+                  type: 'success',
+                  position: 'top-right'
+              });
 
             })
             .catch(error => {
+
+              if(error.response){
+                this.errors = error.response.data.errors;
+              }
+
+              this.dialog=true;
 
               console.log(error);
               
@@ -290,6 +365,9 @@
         this.$refs.calendar.next()
       },
       showEvent ({ nativeEvent, event }) {
+        console.log('showEvent');
+        
+        this.errors = [];
         const open = () => {
           this.selectedEvent = event
           this.selectedElement = nativeEvent.target

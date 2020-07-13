@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Calendar;
+use App\Model\Income;
+use App\Model\Expense;
+
 use Auth;
 use Carbon\Carbon;
 
@@ -12,20 +15,38 @@ class DashboardController extends Controller
 {
     public function getDashboardCredentials(){
 
-        //Customers::whereDate('date_of_birth', '<=', Carbon::today()->addDays(7))->get();
+        $userId =   auth()->user()->id;
 
-        $userId = auth()->user()->id;
-        $events = Calendar::where('user_id',$userId)
-                    ->whereDate('start', '<=', Carbon::today()->addDays(7))
-                    ->whereDate('end', '<=', Carbon::today()->addDays(100000))
-                    ->take(7)->get();
+        $events1 =   Calendar::where('user_id',$userId)
+                    ->whereDate('start', '>', Carbon::today())
+                    ->whereDate('end', '<=', Carbon::today()->addDays(7))
+                    ->take(4)->get();
+                    
+        $events2 =   Calendar::where('user_id',$userId)
+                    ->whereDate('start', '<=', Carbon::today())
+                    ->whereDate('end', '>=', Carbon::today())
+                    ->take(4)->get();
+        
+        $events = array_merge($events1->toArray(), $events2->toArray()); 
 
-        $projects = Auth::user()->projects()->whereDate('duedate', '<=', Carbon::today()->addDays(7))->take(7)->get();
+        $projects = Auth::user()->projects()
+                    ->whereDate('duedate', '>=', Carbon::today())
+                    ->take(8)->get();
+
+        $income = Income::whereDate('income_date','>=',Carbon::today()->subDays(7))
+                    ->sum('amount');
+
+        $expense = Expense::whereDate('expense_date', '>=', Carbon::today()->subDays(7))
+                    ->sum('amount');
 
         return response()->json([
+
             'status'    => 'success',
             'events'    => $events,
-            'projects'  => $projects
+            'projects'  => $projects,
+            'income'    => $income,
+            'expense'   => $expense
+
         ],200);
 
 
