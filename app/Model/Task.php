@@ -11,7 +11,7 @@ class Task extends Model
     use SoftDeletes;
 
     protected $table = 'tasks';
-    protected $dates = ['deleted_at'];
+    // protected $dates = ['deleted_at'];
     protected $fillable = ['name','slug','description','duedate','completed'];
 
     public function setDuedateAttribute($date){

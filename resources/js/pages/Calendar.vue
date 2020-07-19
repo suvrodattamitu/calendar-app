@@ -150,7 +150,10 @@
 
 <style lang="scss">
   .calendar-container{
-    margin-top:60px;
+    margin-top:90px;
+    @media only screen and (max-width: 600px) {
+        margin-top:170px;
+    }
     .v-form{
       margin: 38px;
     }

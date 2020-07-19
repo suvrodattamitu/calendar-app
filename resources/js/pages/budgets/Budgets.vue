@@ -16,9 +16,9 @@
                         </el-button>
                     </div>
                     <div class="text item">
-                        <p>{{'Total Income : 50000$'}}</p>
-                        <p>{{'Total Expense : 40000$'}}</p>
-                        <p>{{'Income - Expense = 10000$'}}</p>
+                        <p>Total Income : {{ dailyIncome }} $</p>
+                        <p>Total Expense : {{ dailyExpense }}$</p>
+                        <p>Income - Expense = {{ dailyIncome-dailyExpense }}$</p>
                     </div>
                 </el-card>
 
@@ -34,9 +34,9 @@
                         </el-button>
                     </div>
                     <div class="text item">
-                        <p>{{'Total Income : 50000$'}}</p>
-                        <p>{{'Total Expense : 40000$'}}</p>
-                        <p>{{'Income - Expense = 10000$'}}</p>
+                        <p>Total Income : {{ weeklyIncome }} $</p>
+                        <p>Total Expense : {{ weeklyExpense }}$</p>
+                        <p>Income - Expense = {{ weeklyIncome-weeklyExpense }}$</p>
                     </div>
                 </el-card>
                 
@@ -52,9 +52,9 @@
                         </el-button>
                     </div>
                     <div class="text item">
-                        <p>{{'Total Income : 50000$'}}</p>
-                        <p>{{'Total Expense : 40000$'}}</p>
-                        <p>{{'Income - Expense = 10000$'}}</p>
+                        <p>Total Income : {{ monthlyIncome }} $</p>
+                        <p>Total Expense : {{ monthlyExpense }}$</p>
+                        <p>Income - Expense = {{ monthlyIncome-monthlyExpense }}$</p>
                     </div>
                 </el-card>
                 
@@ -63,9 +63,7 @@
         </el-row>
 
         <el-row>
-            <el-col 
-                :xs="24" :span="6" :offset="1"
-            >
+            <el-col :xs="24" :span="6" :offset="1">
                 <h4>Income VS Expense 2020</h4> 
                 <div class="chart-container">
                     <div class="chart">
@@ -79,28 +77,8 @@
                 </div>
             </el-col>
 
-            <el-col 
-                :xs="24" :span="6" class="nddiv"
-            >
-            <h4>Income VS Expense 2020</h4> 
-
-                <div class="chart-container">
-                    
-                    <div class="chart">
-                        <line-chart 
-                            v-if="datacollection && chartOptions" 
-                            :chartdata="datacollection" 
-                            :chartoption="chartOptions"
-                        >
-                        </line-chart>
-                    </div>
-                </div>
-            </el-col>
-
-            <el-col 
-                :xs="24" :span="6" class="nddiv"
-            >
-             <h4>Income VS Expense 2020</h4> 
+            <el-col :xs="24" :span="6" class="nddiv">
+                <h4>Income VS Expense 2020</h4> 
                 <div class="chart-container">
 
                     <div class="chart">
@@ -207,9 +185,18 @@ export default {
 
     data(){
         return {
-            datacollection:null,
-            chartOptions:null,
-            loading:false
+            datacollection : null,
+            chartOptions : null,
+            loading : false,
+
+            dailyExpense : 0,
+            dailyIncome : 0,
+            monthlyExpense : 0,
+            monthlyIncome : 0,
+            weeklyExpense : 0,
+            weeklyIncome : 0,
+            loading: false
+
         }
     },
 
@@ -228,65 +215,25 @@ export default {
         //charts
         fillData (incomes,expenses) {
 
-            // let data = {
-            //     ijan : null,
-            //     ifeb : '',
-            //     imar : '',
-            //     iapr : null,
-            //     imay : null,
-            //     ijun : 0,
-            //     ijul : 0,
-            //     iags : 15,
-            //     isep : 14,
-            //     iokt : 1,
-            //     inov : 8,
-            //     ides : 40,
-
-            //     ejan : 10,
-            //     efeb : 10,
-            //     emar : 10,
-            //     eapr : 10,
-            //     emay : 10,
-            //     ejun : 10,
-            //     ejul : 10,
-            //     eags : 10,
-            //     esep : 10,
-            //     eokt : 10,
-            //     enov : 10,
-            //     edes : 10,
-            // }
-
             this.datacollection = {
                 fill:true,
                 labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [
                 {
                     label: "Income",
-                    data: [incomes.January, incomes.February, incomes.March, incomes.April, incomes.May, incomes.June, incomes.July, incomes.August, incomes.Septermber, incomes.October, incomes.November, incomes.December],
+                    data: [incomes.January, incomes.February, incomes.March, incomes.April, incomes.May, incomes.June, incomes.July, incomes.August, incomes.September, incomes.October, incomes.November, incomes.December],
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 0.2)',
                     borderWidth: 1
                 },
                 {
                     label: "Expense",
-                    data: [expenses.January, expenses.February, expenses.March, expenses.April, expenses.May, expenses.June, expenses.July, expenses.August, expenses.Septermber, expenses.October, expenses.November, expenses.December],
+                    data: [expenses.January, expenses.February, expenses.March, expenses.April, expenses.May, expenses.June, expenses.July, expenses.August, expenses.September, expenses.October, expenses.November, expenses.December],
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor:	'rgba(255,99,132,1)',
                     borderWidth: 1
                 }]
                     
-                // fill:true,
-                // labels: ['January', 'February', 'March', 'April', 'May', 'June','July','August','September','October','November','December'],
-                // datasets: [{
-                //     label: '# of Votes',
-                //     data: [12, 19, 3, 5, 2, 3,15,5,20,10,2,6],
-                //     backgroundColor:'transparent',
-                //     borderColor: [
-                //         'rgba(255, 99, 132, 1)',
-                //     ],
-                //     borderWidth: 4
-                // }
-                // ]
             }
 
             this.chartOptions = {
@@ -325,32 +272,6 @@ export default {
                     }]
                 }
                     
-                // responsive: true,
-                // maintainAspectRatio: false,
-                // legend: {
-                //     display: true,
-                //     labels: {
-                //         fontColor: 'rgb(0, 0, 0)'
-                //     },
-                //     position: 'bottom'
-                // },
-                // scales: {
-                //     display: true,
-                //     scaleLabel: {
-                //         display: true,
-                //         labelString: 'Month'
-                //     },
-                //     yAxes: [{
-                //         display: true,
-                //         ticks: {
-                //             beginAtZero: true
-                //         },
-                //         scaleLabel: {
-				// 			display: true,
-				// 			labelString: 'Value'
-				// 		}
-                //     }]
-                // }
 
             }
         },
@@ -364,11 +285,18 @@ export default {
             axios.get('/get-budgets')
                 .then(response => {
 
-                    // this.events     = response.data.events;
-                    // this.projects   = response.data.projects;
-                    // this.income     = response.data.income;
-                    // this.expense    = response.data.expense;
                     console.log(response.data);
+                    //daily budget
+                    this.dailyExpense = response.data.dailyExpense;
+                    this.dailyIncome  = response.data.dailyIncome;
+
+                    //weekly budget
+                    this.weeklyExpense = response.data.weeklyExpense;
+                    this.weeklyIncome  = response.data.weeklyIncome;
+
+                    //monthly budget
+                    this.monthlyExpense = response.data.monthlyExpense;
+                    this.monthlyIncome  = response.data.monthlyIncome;
 
                     let incomes = response.data.incomes;
                     let expenses = response.data.expenses;

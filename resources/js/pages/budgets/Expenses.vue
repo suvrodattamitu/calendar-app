@@ -91,21 +91,23 @@
                             </el-table-column>
 
                             <el-table-column
-                            label="Name"
+                                label="Name"
+                                prop="name"
                             >
-                            <template slot-scope="scope">
-                                <router-link 
-                                    :to="{ name: 'expense', params: { expense_slug: scope.row.slug } }">
-                                    {{ scope.row.name }}
-                                </router-link>
-                            </template>
+                            
                             </el-table-column>
 
                             <el-table-column 
-                            label="Description"
-                            prop="description">
+                                label="Description"
+                                prop="description"
+                            >
                             </el-table-column>
 
+                            <el-table-column 
+                                label="Amount"
+                                prop="amount"
+                            >
+                            </el-table-column>
 
                             <el-table-column
                                 label="Due date">
@@ -144,7 +146,6 @@
 
             </el-col>
         </el-row>
-
 
         <!-- Delete form Confimation Modal -->
         <el-dialog
@@ -192,63 +193,11 @@
             @openExpenseEditModal="openEditDialogModal"
             @editedExpense="editedExpense"
         >
-
         </edit-expense>
-
-        
 
     </div>
 
 </template>
-
-<style lang="scss">
-    .error-warning{
-      color:#ff0000;
-    }
-    .payform_section_actions{
-
-      display:flex;
-      justify-content: space-between;
-
-      .el-button{
-        color:#ffffff;
-      }
-
-      @media only screen and (max-width: 600px) {
-
-          display:flex;
-          flex-direction:column;
-
-      }
-
-      .search_action_orders{
-          display: flex;
-          align-items: flex-end;
-      }
-
-      .payform_action{
-          display:flex;
-          flex-direction: row;
-
-          @media only screen and (max-width: 600px) {
-              margin-top: 10px;
-          }
-
-          .payform_action_button{
-              margin-left:5px;
-          }
-      }
-
-  }
-
-  .payform_section_body{
-      margin-top: 15px;
-      .el-badge {
-          margin-top: 5px;
-      }
-  }
-
-</style>
 
 <script>
 

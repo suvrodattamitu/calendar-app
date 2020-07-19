@@ -11,7 +11,7 @@ class Subtask extends Model
 {
 
     protected $table = 'subtasks';
-    protected $dates = ['deleted_at'];
+    // protected $dates = ['deleted_at'];
     protected $fillable = ['name','slug','description','duedate','completed'];
 
     public function setDuedateAttribute($date){

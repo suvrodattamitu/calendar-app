@@ -33,19 +33,22 @@ class DashboardController extends Controller
                     ->whereDate('duedate', '>=', Carbon::today())
                     ->take(8)->get();
 
-        $income = Income::whereDate('income_date','>=',Carbon::today()->subDays(7))
-                    ->sum('amount');
+        // $income = Income::whereDate('income_date','>=',Carbon::today()->subDays(7))
+        //             ->sum('amount');
 
-        $expense = Expense::whereDate('expense_date', '>=', Carbon::today()->subDays(7))
-                    ->sum('amount');
+        // $expense = Expense::whereDate('expense_date', '>=', Carbon::today()->subDays(7))
+        //             ->sum('amount');
+        //get monthly income expense //7 as it is true
+        $monthlyIncome  = Income::whereMonth('income_date', Carbon::now()->month)->sum('amount');
+        $monthlyExpense = Expense::whereMonth('expense_date', Carbon::now()->month)->sum('amount');
 
         return response()->json([
 
             'status'    => 'success',
             'events'    => $events,
             'projects'  => $projects,
-            'income'    => $income,
-            'expense'   => $expense
+            'income'    => $monthlyIncome,
+            'expense'   => $monthlyExpense
 
         ],200);
 

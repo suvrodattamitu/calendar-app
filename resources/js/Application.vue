@@ -45,6 +45,7 @@
                                 <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#" @click.prevent="logoutUser">Logout</a></li>
+                                    <li><a href="#" @click.prevent="goSettings()">Settings</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -135,6 +136,90 @@
 
 <style lang="scss">
 
+.el-date-editor{
+    width: 130px !important;
+}
+.wppayforms{  
+    
+    margin-top:90px;
+    @media only screen and (max-width: 600px) {
+        margin-top:170px;
+    }
+
+    .error-warning{
+        color:#ff0000;
+    }
+    .payform_section_actions{
+
+        display:flex;
+        justify-content: space-between;
+
+        .el-button{
+            color:#ffffff;
+        }
+
+        @media only screen and (max-width: 600px) {
+
+            display:flex;
+            flex-direction:column;
+
+        }
+
+        .search_action_orders{
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .payform_action{
+            display:flex;
+            flex-direction: row;
+
+            @media only screen and (max-width: 600px) {
+                margin-top: 10px;
+            }
+
+            .payform_action_button{
+                margin-left:5px;
+            }
+        }
+
+    }
+
+    .payform_section_body{
+        margin-top: 15px;
+        .el-badge {
+            margin-top: 5px;
+        }
+    }
+
+}
+
+// .wppayforms{
+//         margin-top:90px;
+//         @media only screen and (max-width: 600px) {
+//             margin-top:170px;
+//         }
+
+//         .payform_section_actions{
+
+//             display:flex;
+//             justify-content: space-between;
+
+//             .el-button{
+//                 color:#ffffff;
+//             }
+
+//             @media only screen and (max-width: 600px) {
+
+//                 display:flex;
+//                 flex-direction:column;
+
+//             }
+//         }
+//     }
+
+
+
 .menu-dropdown-link{
     float: right;
    // position: fixed;
@@ -185,6 +270,10 @@
             }
         },
         methods: {
+
+            goSettings(){
+                this.$router.push('/admin/settings');
+            },
           
             logoutUser() {
                 document.getElementById('logout-form').submit();
@@ -207,6 +296,10 @@
                     {
                         route: 'budgets',
                         title: 'Budgets'
+                    },
+                    {
+                        route: 'settings',
+                        title: 'Settings'
                     }
                 ]
             }

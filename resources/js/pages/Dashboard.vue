@@ -50,7 +50,7 @@
 
                 <el-card class="box-card">
                     <div slot="header" class="clearfix">
-                        <span>Weekly Report</span>
+                        <span>Monthly Report</span>
                         <el-button style="float: right; padding: 3px 0" type="text">
                             <i class="fa fa-bar-chart" aria-hidden="true"></i>
                         </el-button>
@@ -67,53 +67,6 @@
         </el-row>
     </div>
 </template>
-
-<style lang="scss">
-
-    .dashboard-container{
-        margin-top:90px;
-        @media only screen and (max-width: 600px) {
-            margin-top:170px;
-        }
-
-        .icon-style{
-            margin-right: 5px;
-            font-size:16px;
-            font-weight: 700;
-        }
-
-       .text {
-            font-size: 14px;
-            .el-icon-date{
-                margin-right: 5px;
-                font-size:16px;
-                font-weight: 700;
-            }
-        }
-
-        .item {
-            margin-bottom: 18px;
-        }
-
-        .clearfix:before,
-        .clearfix:after {
-            display: table;
-            content: "";
-        }
-        .clearfix:after {
-            clear: both
-        }
-
-        .card-col {
-            width: 300px;
-            margin-bottom:15px;
-            .box-card{
-                width: 100%;
-            }
-        }
-    }
-
-</style>
 
 <script>
 

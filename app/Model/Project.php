@@ -12,7 +12,7 @@ class Project extends Model
     use SoftDeletes;
     
     protected $table = 'projects';
-    protected $dates = ['deleted_at'];
+    // protected $dates = ['deleted_at'];
     protected $fillable = ['name','slug','description','duedate','completed'];
 
     public function setDuedateAttribute($date){

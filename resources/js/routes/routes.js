@@ -3,6 +3,8 @@ import Budgets from './../pages/budgets/Budgets';
 import Dashboard from './../pages/Dashboard';
 import Calendar from './../pages/Calendar';
 import ProjectDetails from './../pages/todos/project/project_crud/show_project';
+import Settings from '../pages/Settings';
+
 
 import Expenses from './../pages/budgets/Expenses';
 import Incomes from './../pages/budgets/Incomes';
@@ -38,6 +40,12 @@ export const routes = [
         path: '/admin/budgets',
         component: Budgets,
         meta:{title: 'Budgets'}
+    },
+    {
+        name: 'settings',
+        path: '/admin/settings',
+        component: Settings,
+        meta:{title: 'Settings'}
     },
     {
         name: 'incomes',

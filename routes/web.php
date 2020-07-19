@@ -52,3 +52,7 @@ Route::post('/expenses/delete-multiple','Budgets\ExpenseController@deleteMultipl
 
 //budgets
 Route::get('/get-budgets','Budgets\BudgetController@getBudgets');
+
+//settings
+Route::get('/get-settings-credentials','Settings\SettingsController@getSettings');
+Route::post('/settings/update','Settings\SettingsController@updateSettings');
