@@ -82,7 +82,8 @@ export default {
                     let settings = response.data.settings;
                     
                     if( settings && settings.general_settings ){
-                        this.software_name = settings.general_settings.software_settings.software_name;
+                        this.software_name  = settings.general_settings.software_settings.software_name;
+                        this.currency       = settings.general_settings.currency_settings.currency_code;
                     }
 
                     console.log(response.data);
@@ -110,6 +111,8 @@ export default {
                 .then(response => {
 
                     console.log(response.data);
+                    this.$store.dispatch('settingsAction',response.data.settings);
+
                     this.getSettings();
 
                     this.$notify({

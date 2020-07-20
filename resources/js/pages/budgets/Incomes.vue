@@ -101,8 +101,10 @@
 
                             <el-table-column 
                                 label="Amount"
-                                prop="amount"
                             >
+                                <template slot-scope="scope">
+                                    {{ scope.row.amount }} <span v-html="globalSettings.currency_symbol"></span>
+                                </template>
                             </el-table-column>
 
                             <el-table-column

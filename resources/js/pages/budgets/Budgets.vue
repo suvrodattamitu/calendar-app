@@ -16,9 +16,9 @@
                         </el-button>
                     </div>
                     <div class="text item">
-                        <p>Total Income : {{ dailyIncome }} $</p>
-                        <p>Total Expense : {{ dailyExpense }}$</p>
-                        <p>Income - Expense = {{ dailyIncome-dailyExpense }}$</p>
+                        <p>Total Income : {{ dailyIncome }}  <span v-html="globalSettings.currency_symbol"></span></p>
+                        <p>Total Expense : {{ dailyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
+                        <p>Income - Expense = {{ dailyIncome-dailyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
                     </div>
                 </el-card>
 
@@ -34,9 +34,9 @@
                         </el-button>
                     </div>
                     <div class="text item">
-                        <p>Total Income : {{ weeklyIncome }} $</p>
-                        <p>Total Expense : {{ weeklyExpense }}$</p>
-                        <p>Income - Expense = {{ weeklyIncome-weeklyExpense }}$</p>
+                        <p>Total Income : {{ weeklyIncome }}  <span v-html="globalSettings.currency_symbol"></span></p>
+                        <p>Total Expense : {{ weeklyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
+                        <p>Income - Expense = {{ weeklyIncome-weeklyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
                     </div>
                 </el-card>
                 
@@ -52,9 +52,9 @@
                         </el-button>
                     </div>
                     <div class="text item">
-                        <p>Total Income : {{ monthlyIncome }} $</p>
-                        <p>Total Expense : {{ monthlyExpense }}$</p>
-                        <p>Income - Expense = {{ monthlyIncome-monthlyExpense }}$</p>
+                        <p>Total Income : {{ monthlyIncome }}  <span v-html="globalSettings.currency_symbol"></span></p>
+                        <p>Total Expense : {{ monthlyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
+                        <p>Income - Expense = {{ monthlyIncome-monthlyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
                     </div>
                 </el-card>
                 

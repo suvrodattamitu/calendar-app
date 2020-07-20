@@ -56,3 +56,6 @@ Route::get('/get-budgets','Budgets\BudgetController@getBudgets');
 //settings
 Route::get('/get-settings-credentials','Settings\SettingsController@getSettings');
 Route::post('/settings/update','Settings\SettingsController@updateSettings');
+
+//global
+Route::get('/get-global-credentials','Settings\SettingsController@getGlobalSettings');

@@ -302,10 +302,31 @@
                         title: 'Settings'
                     }
                 ]
+            },
+
+            getGlobalSettings(){
+
+                axios.get('/get-global-credentials')
+                    .then(response => {
+
+                        this.$store.dispatch('settingsAction',response.data.settings);
+                        console.log(response.data);
+
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+                    .then(() => {
+                        
+                    });
+
             }
+
         },
         mounted() {
             this.setTopmenu();
+
+            this.getGlobalSettings();
         }
     }
 </script>

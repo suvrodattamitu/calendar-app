@@ -2,6 +2,9 @@
     <div class="dashboard-container" v-loading="loading" element-loading-text="Loading...Please Wait...">
         <el-row>
 
+            <p>{{ $t('message') }}</p>
+
+
             <el-col :span="6" :offset="1" class="card-col">
                 <el-card class="box-card">
                     <div slot="header" class="clearfix">
@@ -56,9 +59,9 @@
                         </el-button>
                     </div>
                     <div class="text item">
-                        <p>Total Income : {{income}}$</p>
-                        <p>Total Expense : {{expense}}</p>
-                        <p>Income - Expense = {{(income-expense)}}</p>
+                        <p>Total Income : {{income}} <span v-html="globalSettings.currency_symbol"></span> </p>
+                        <p>Total Expense : {{expense}} <span v-html="globalSettings.currency_symbol"></span></p>
+                        <p>Income - Expense = {{(income-expense)}} <span v-html="globalSettings.currency_symbol"></span></p>
                     </div>
                 </el-card>
 
@@ -122,6 +125,14 @@ export default {
 
         },
     },
+
+    // computed:{
+
+    //     globalSettings(){
+    //         return  this.$store.getters.getSettings;
+    //     }
+
+    // },
 
     mounted(){
         this.getEvents();
