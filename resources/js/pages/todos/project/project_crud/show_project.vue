@@ -100,13 +100,8 @@
 
                             <el-table-column
                             label="Name"
+                            prop="name"
                             >
-                            <template slot-scope="scope">
-                                <router-link 
-                                    :to="{ name: 'project', params: { project_slug: scope.row.slug } }">
-                                    {{ scope.row.name }}
-                                </router-link>
-                            </template>
                             </el-table-column>
 
                             <el-table-column 

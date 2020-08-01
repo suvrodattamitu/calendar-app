@@ -1,74 +1,80 @@
 <template>
     <div class="dashboard-container" v-loading="loading" element-loading-text="Loading...Please Wait...">
+        
         <el-row>
-            <el-col :span="24" :offset="1" class="button-group">
+            <div :md="12" :offset="1" class="button-group">
                 <el-button type="primary" @click="redirectToExpenses">Expenses</el-button>
                 <el-button type="primary" @click="redirectToIncomes">Incomes</el-button>
-            </el-col>
-
-            <el-col :span="6" :offset="1" class="card-col">
-
-                <el-card class="box-card">
-                    <div slot="header" class="clearfix">
-                        <span>Daily Report</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">
-                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                        </el-button>
-                    </div>
-                    <div class="text item">
-                        <p>Total Income : {{ dailyIncome }}  <span v-html="globalSettings.currency_symbol"></span></p>
-                        <p>Total Expense : {{ dailyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
-                        <p>Income - Expense = {{ dailyIncome-dailyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
-                    </div>
-                </el-card>
-
-            </el-col>
-
-            <el-col :span="6" :offset="1" class="card-col">
-
-                <el-card class="box-card">
-                    <div slot="header" class="clearfix">
-                        <span>Weekly Report</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">
-                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                        </el-button>
-                    </div>
-                    <div class="text item">
-                        <p>Total Income : {{ weeklyIncome }}  <span v-html="globalSettings.currency_symbol"></span></p>
-                        <p>Total Expense : {{ weeklyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
-                        <p>Income - Expense = {{ weeklyIncome-weeklyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
-                    </div>
-                </el-card>
-                
-            </el-col>
-
-            <el-col :span="6" :offset="1" class="card-col">
-
-                <el-card class="box-card">
-                    <div slot="header" class="clearfix">
-                        <span>Monthly Report</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">
-                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                        </el-button>
-                    </div>
-                    <div class="text item">
-                        <p>Total Income : {{ monthlyIncome }}  <span v-html="globalSettings.currency_symbol"></span></p>
-                        <p>Total Expense : {{ monthlyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
-                        <p>Income - Expense = {{ monthlyIncome-monthlyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
-                    </div>
-                </el-card>
-                
-            </el-col>
-
+            </div>
         </el-row>
 
         <el-row>
-            <el-col :xs="24" :span="6" :offset="1">
+            <div class="cards-container">
+                <el-col :md="7" class="card-col">
+
+                    <el-card class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>Daily Report</span>
+                            <el-button style="float: right; padding: 3px 0" type="text">
+                                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                            </el-button>
+                        </div>
+                        <div class="text item">
+                            <p>Total Income : {{ dailyIncome }}  <span v-html="globalSettings.currency_symbol"></span></p>
+                            <p>Total Expense : {{ dailyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
+                            <p>Income - Expense = {{ dailyIncome-dailyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
+                        </div>
+                    </el-card>
+
+                </el-col>
+
+                <el-col :md="7" class="card-col">
+
+                    <el-card class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>Weekly Report</span>
+                            <el-button style="float: right; padding: 3px 0" type="text">
+                                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                            </el-button>
+                        </div>
+                        <div class="text item">
+                            <p>Total Income : {{ weeklyIncome }}  <span v-html="globalSettings.currency_symbol"></span></p>
+                            <p>Total Expense : {{ weeklyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
+                            <p>Income - Expense = {{ weeklyIncome-weeklyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
+                        </div>
+                    </el-card>
+                    
+                </el-col>
+
+                <el-col :md="7" class="card-col">
+
+                    <el-card class="box-card">
+                        <div slot="header" class="clearfix">
+                            <span>Monthly Report</span>
+                            <el-button style="float: right; padding: 3px 0" type="text">
+                                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                            </el-button>
+                        </div>
+                        <div class="text item">
+                            <p>Total Income : {{ monthlyIncome }}  <span v-html="globalSettings.currency_symbol"></span></p>
+                            <p>Total Expense : {{ monthlyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
+                            <p>Income - Expense = {{ monthlyIncome-monthlyExpense }} <span v-html="globalSettings.currency_symbol"></span></p>
+                        </div>
+                    </el-card>
+                    
+                </el-col>
+            </div>
+        </el-row>
+
+        <el-row>
+            <el-col :md="24" :offset="1" class="chart-details">
                 <h4>Income VS Expense 2020</h4> 
                 <div class="chart-container">
                     <div class="chart">
                         <line-chart 
-                            v-if="datacollection && chartOptions" 
+                            v-if="datacollection && chartOptions"
+                            :height="300"
+                            :width="500" 
                             :chartdata="datacollection" 
                             :chartoption="chartOptions"
                         >
@@ -77,7 +83,7 @@
                 </div>
             </el-col>
 
-            <el-col :xs="24" :span="6" class="nddiv">
+            <!-- <el-col :xs="24" :span="6" class="nddiv">
                 <h4>Income VS Expense 2020</h4> 
                 <div class="chart-container">
 
@@ -90,7 +96,7 @@
                         </bar-chart>
                     </div>
                 </div>
-            </el-col>
+            </el-col> -->
 
         </el-row>
 
@@ -98,6 +104,52 @@
 </template>
 
 <style lang="scss">
+
+    .button-group{
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        //margin:0px 8px;
+        margin-right:72px;
+    }
+
+    .cards-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // flex-direction: column;
+
+        .card-col {
+            margin:0px 8px;
+            // width: 320px !important;
+            // margin-bottom:15px;
+            // .box-card{
+            //     //width:320px;
+            //     width: 100%;
+            // }
+        }
+
+    }
+
+    .chart-details{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        .chart-container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width:500px;
+            max-width: 500px;
+            @media only screen and (max-width: 600px) {
+                max-width: 320px;
+            }
+            .chart{
+                width: 100%;
+            }
+        }
+    }
 
     .dashboard-container{
 
@@ -115,22 +167,22 @@
             margin-top:170px;
         }
 
-        .chart-container {
-            display: flex;
-            border-radius: 6px;
-            box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-            background-color: #FFFFFF;
-            color: #252422;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-            max-width: 320px;
-            .chart {
-                padding: 15px 15px 10px 15px;
-                width: 100%;
-                max-width: 300px;
-            }
-        }
+        // .chart-container {
+        //     display: flex;
+        //     border-radius: 6px;
+        //     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+        //     background-color: #FFFFFF;
+        //     color: #252422;
+        //     margin-bottom: 20px;
+        //     position: relative;
+        //     z-index: 1;
+        //     max-width: 320px;
+        //     .chart {
+        //         padding: 15px 15px 10px 15px;
+        //         width: 100%;
+        //         max-width: 300px;
+        //     }
+        // }
 
         
         
@@ -163,14 +215,7 @@
             clear: both
         }
 
-        .card-col {
-            width: 320px !important;
-            margin-bottom:15px;
-            .box-card{
-                //width:320px;
-                width: 100%;
-            }
-        }
+        
     }
 
 </style>

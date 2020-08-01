@@ -16,24 +16,6 @@
   }
 }
 
-.dashboard-container .chart-container {
-  display: flex;
-  border-radius: 6px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  background-color: #FFFFFF;
-  color: #252422;
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
-  max-width: 320px;
-}
-
-.dashboard-container .chart-container .chart {
-  padding: 15px 15px 10px 15px;
-  width: 100%;
-  max-width: 300px;
-}
-
 .dashboard-container .icon-style {
   margin-right: 5px;
   font-size: 16px;
@@ -62,14 +44,5 @@
 
 .dashboard-container .clearfix:after {
   clear: both;
-}
-
-.dashboard-container .card-col {
-  width: 320px !important;
-  margin-bottom: 15px;
-}
-
-.dashboard-container .card-col .box-card {
-  width: 100%;
 }
 

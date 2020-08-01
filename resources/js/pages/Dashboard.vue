@@ -1,17 +1,12 @@
 <template>
     <div class="dashboard-container" v-loading="loading" element-loading-text="Loading...Please Wait...">
         <el-row>
-
-            <p>{{ $t('message') }}</p>
-
-
-            <el-col :span="6" :offset="1" class="card-col">
+            <el-col :span="6" :offset="1" class="card-col" key="1">
                 <el-card class="box-card">
                     <div slot="header" class="clearfix">
                         <span>Recent Events</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">
-                            <i class="el-icon-alarm-clock icon-style"></i>
-                        </el-button>
+                        <i class="el-icon-alarm-clock icon-style"></i>
+                            <!-- <span class="dashicons"></span> -->
                     </div>
                     <div  v-if="events.length">
                         <div v-for="(event,index) in events" :key="index" class="text item">
@@ -26,14 +21,12 @@
                 </el-card>
             </el-col>
 
-            <el-col :span="6" :offset="1" class="card-col">
+            <el-col :span="6" :offset="1" class="card-col" key="2">
 
                 <el-card class="box-card">
                     <div slot="header" class="clearfix">
                         <span>Recent Projects</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">
-                            <i class="el-icon-trophy icon-style"></i>
-                        </el-button>
+                        <i class="el-icon-trophy icon-style"></i>
                     </div>
                     <div v-if="projects.length">
                         <div v-for="(project,index) in projects" :key="index" class="text item">
@@ -49,14 +42,12 @@
             
             </el-col>
 
-            <el-col :span="6" :offset="1" class="card-col">
+            <el-col :span="6" :offset="1" class="card-col" key="3">
 
                 <el-card class="box-card">
                     <div slot="header" class="clearfix">
                         <span>Monthly Report</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">
-                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                        </el-button>
+                        <i class="fa fa-bar-chart icon-style" aria-hidden="true"></i>
                     </div>
                     <div class="text item">
                         <p>Total Income : {{income}} <span v-html="globalSettings.currency_symbol"></span> </p>
@@ -66,11 +57,22 @@
                 </el-card>
 
             </el-col>
-            
         </el-row>
     </div>
 </template>
 
+
+<style lang="scss">
+    .icon-left{
+        cursor: move;
+        font-size:16px;
+        padding:2px;
+    }
+    .icon-style{
+        float: right;
+        padding: 3px 0
+    }
+</style>
 <script>
 
 import moment from 'moment';

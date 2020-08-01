@@ -166,14 +166,14 @@ import {
   Vue.prototype.$message = Message;
 
 
-// import lang from 'element-ui/lib/locale/lang/en';
+import lang from 'element-ui/lib/locale/lang/en';
 import locale from 'element-ui/lib/locale';
 
 
-import enLocale from 'element-ui/lib/locale/lang/en'
-import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
+// import enLocale from 'element-ui/lib/locale/lang/en'
+// import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 
-locale.use(zhLocale);
+locale.use(lang);
 
 import Vuetify from './../plugins/vuetify';
 Vue.component('calendar', require('./pages/Calendar.vue').default);
@@ -237,26 +237,26 @@ const store = new Vuex.Store(
     storeFrontData
 );
 
-import VueI18n from 'vue-i18n';
-Vue.use(VueI18n);
+// import VueI18n from 'vue-i18n';
+// Vue.use(VueI18n);
 
-Vue.config.lang = 'zh-cn';
+// Vue.config.lang = 'zh-cn';
 //Vue.locale('zh-cn', zhLocale);
 //Vue.locale('en', enLocale);
 
-const messages = {
-    en: {
-      message: 'hello',
-    },
-    zh: {
-      message: '你好',
-    }
-  }
-  // Create VueI18n instance with options
-  const i18n = new VueI18n({
-    locale: 'zh', // set locale
-    messages, // set locale messages
-  })
+// const messages = {
+//     en: {
+//       message: 'hello',
+//     },
+//     zh: {
+//       message: '你好',
+//     }
+//   }
+//   // Create VueI18n instance with options
+//   const i18n = new VueI18n({
+//     locale: 'zh', // set locale
+//     messages, // set locale messages
+//   })
   
 //  locale.i18n((key, value) => i18n.t(key, value))
 
@@ -264,7 +264,6 @@ const app = new Vue({
     vuetify:Vuetify,
     router:router,
     store,
-    i18n,
     render: h=>h(Application),
     el: '#fluentmanagement',
 });

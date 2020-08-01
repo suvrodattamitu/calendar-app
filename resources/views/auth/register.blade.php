@@ -1,5 +1,5 @@
 <!-- @extends('layouts.app') -->
-@extends('partials.bodywithoutsidenav')
+<!-- @extends('partials.bodywithoutsidenav') -->
 @section('title', 'Register')
 
 @section('content')

@@ -14,22 +14,22 @@
         margin-top:170px;
     }
 
-    .chart-container {
-        display: flex;
-        border-radius: 6px;
-        box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-        background-color: #FFFFFF;
-        color: #252422;
-        margin-bottom: 20px;
-        position: relative;
-        z-index: 1;
-        max-width: 320px;
-        .chart {
-            padding: 15px 15px 10px 15px;
-            width: 100%;
-            max-width: 300px;
-        }
-    }
+    // .chart-container {
+    //     display: flex;
+    //     border-radius: 6px;
+    //     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+    //     background-color: #FFFFFF;
+    //     color: #252422;
+    //     margin-bottom: 20px;
+    //     position: relative;
+    //     z-index: 1;
+    //     max-width: 320px;
+    //     .chart {
+    //         padding: 15px 15px 10px 15px;
+    //         width: 100%;
+    //         max-width: 300px;
+    //     }
+    // }
 
     
     
@@ -62,12 +62,12 @@
         clear: both
     }
 
-    .card-col {
-        width: 320px !important;
-        margin-bottom:15px;
-        .box-card{
-            //width:320px;
-            width: 100%;
-        }
-    }
+    // .card-col {
+    //     width: 320px !important;
+    //     margin-bottom:15px;
+    //     .box-card{
+    //         //width:320px;
+    //         width: 100%;
+    //     }
+    // }
 }

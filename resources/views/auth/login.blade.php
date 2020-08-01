@@ -1,6 +1,6 @@
 <!-- @extends('layouts.app') -->
 
-@extends('partials.bodywithoutsidenav')
+<!-- @extends('partials.bodywithoutsidenav') -->
 @section('title', 'Login')
 
 @section('content')

@@ -1,28 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
-
-        <link href="{{asset('css/app.css')}}">
-
-    </head>
-    <body>
-    
-        <div id="fluentmanagement">
-            <admin></admin>
-        </div>
-
-        <script src="{{ asset('js/boot.js') }}"></script>
-        <script src="{{asset('js/app.js')}}"></script>
-    </body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -34,13 +9,14 @@
         <meta name="description" content="todoapp helps organises your projects & tasks & helps you accomplish and manage the projects on time.">
         <link rel="author" href="humans.txt" />
         <!--Shortcut icon-->
-        <link rel="shortcut icon" href="{{ asset('/favicon.png') }}" />
+        <link rel="icon" type="image/png" href="{{ asset('assets/images/logo/logo.png') }}" />
+
         <title>@yield('title')</title>
-        <link href='https://fonts.googleapis.com/css?family=Muli:400,300,300italic,400italic' rel='stylesheet' type='text/css'>
+        <!-- <link href='https://fonts.googleapis.com/css?family=Muli:400,300,300italic,400italic' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,700,400italic,700italic,900,900italic' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic|Montserrat:400,700|Ubuntu:400,300,300italic,400italic,500italic,500,700,700italic|Lobster|Pacifico|Quicksand:400,300,700|Questrial|Architects+Daughter|Kaushan+Script|Satisfy|Fugaz+One|Oleo+Script:400,700|Audiowide' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic|Montserrat:400,700|Ubuntu:400,300,300italic,400italic,500italic,500,700,700italic|Lobster|Pacifico|Quicksand:400,300,700|Questrial|Architects+Daughter|Kaushan+Script|Satisfy|Fugaz+One|Oleo+Script:400,700|Audiowide' rel='stylesheet' type='text/css'> -->
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>

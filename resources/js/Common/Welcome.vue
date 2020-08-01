@@ -1,8 +1,8 @@
 <template>
 
     <div class="ninja_intro_welcome">
-        <h2>Welcome <span style="color:#007AFF;"> </span> to <span> </span></h2>
-        <p>Thank you from <span></span> - Inventory System Made Simple</p>
+        <h2>Welcome <span style="color:#007AFF;"> </span></h2>
+        <p>Thank you. <span></span> - Management System Made Simple</p>
         <div class="ninja_actions">
             <el-button type="success" @click="createNew">
                 Create a {{ additionalData.name }}
