@@ -1,8 +1,8 @@
-@extends('partials.bodywithoutsidenav')
+@extends('app')
 
 @section('title', 'Home | ToDoApp')
 
-@section('content')
+@section('bodycontent')
 
 <div class="home">
     <div class="container">
