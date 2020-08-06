@@ -11,7 +11,7 @@
 		    <div class="panel-wrapper">
                 <div class="panel panel-default bg-whitelight box-shadow">
                     <div class="panel-heading margin-bottom-10">
-                        ToDoApp Login
+                        Login
                     </div>
                     <div class="panel-body">
 
@@ -20,7 +20,7 @@
                             <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12 control-label">E-Mail&nbsp<i class="fa fa-envelope"></i></label>
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <input type="email" class="form-control icon" name="email" value="{{ old('email') }}" placeholder="e.g. michael@gmail.com">
+                                    <input type="email" class="form-control icon" name="email" value="{{ old('email') }}" placeholder="e.g. admin@example.com">
                                 </div>
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -34,7 +34,7 @@
                                 <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12 control-label">Password&nbsp<i class="fa fa-key"></i>
                                 </label>
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <input type="password" class="form-control" name="password" placeholder="e.g. onlymichaelknows">
+                                    <input type="password" class="form-control" name="password" placeholder="e.g. onlyadminknows">
                                 </div>
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -61,11 +61,11 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <div class="col-lg-12 col-md-12 col-ms-12 col-xs-12">
                                     <a href="{{ url('/password/email') }}" class="btn btn-block btn-red">Forgot Password?</a>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <div class="col-lg-12 col-md-12 col-ms-12 col-xs-12">
                                     <a href="{{ route('register') }}" class="btn btn-block btn-orange">Register</a>

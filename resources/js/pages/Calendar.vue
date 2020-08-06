@@ -158,6 +158,16 @@
       margin: 38px;
     }
   }
+
+  .el-color-dropdown__btn{
+      span{
+          color:#000000 !important;
+      }
+  }
+
+  .error-warning{
+    color:#ff0000;
+  }
 </style>
 
 <script>

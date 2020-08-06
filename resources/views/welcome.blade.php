@@ -22,6 +22,16 @@
 
         <link rel="stylesheet" href="{{asset('assets/css/elements.css')}}">
 
+        <script>
+
+            window.user = @json(
+                [
+                    'user'  => auth()->user()
+                ]
+            );
+
+        </script>
+
 
     </head>
     <body>

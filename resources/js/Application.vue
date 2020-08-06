@@ -41,7 +41,7 @@
                         <ul class="menu-dropdown-link">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ 'user name' }} 
+                                    {{ username }} 
                                 <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#" @click.prevent="logoutUser">Logout</a></li>
@@ -266,7 +266,8 @@
         name: 'global_wrapper',
         data() {
             return {
-                topMenus: []
+                topMenus: [],
+                username: ''
             }
         },
         methods: {
@@ -297,10 +298,10 @@
                         route: 'budgets',
                         title: 'Budgets'
                     },
-                    {
-                        route: 'settings',
-                        title: 'Settings'
-                    }
+                    // {
+                    //     route: 'settings',
+                    //     title: 'Settings'
+                    // }
                 ]
             },
 
@@ -310,7 +311,6 @@
                     .then(response => {
 
                         this.$store.dispatch('settingsAction',response.data.settings);
-                        console.log(response.data);
 
                     })
                     .catch(error => {
@@ -324,8 +324,10 @@
 
         },
         mounted() {
-            this.setTopmenu();
 
+            this.username = window.user.user.name;
+
+            this.setTopmenu();
             this.getGlobalSettings();
         }
     }

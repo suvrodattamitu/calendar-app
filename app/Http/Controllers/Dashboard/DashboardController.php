@@ -39,8 +39,8 @@ class DashboardController extends Controller
         // $expense = Expense::whereDate('expense_date', '>=', Carbon::today()->subDays(7))
         //             ->sum('amount');
         //get monthly income expense //7 as it is true
-        $monthlyIncome  = Income::whereMonth('income_date', Carbon::now()->month)->sum('amount');
-        $monthlyExpense = Expense::whereMonth('expense_date', Carbon::now()->month)->sum('amount');
+        $monthlyIncome  = Income::where('user_id',$userId)->whereMonth('income_date', Carbon::now()->month)->sum('amount');
+        $monthlyExpense = Expense::where('user_id',$userId)->whereMonth('expense_date', Carbon::now()->month)->sum('amount');
 
         return response()->json([
 
