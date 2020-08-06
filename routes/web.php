@@ -8,6 +8,9 @@ Route::get('/', ['middleware' =>'guest', function(){
 
 Auth::routes();
 
+//for support tickets
+Route::get('/support','Support\SupportController@getSupport');
+
 Route::any('/admin/{any?}', 'Calendar\CalendarController@index')->where('any','.*')->middleware('auth');
 
 //dashboard

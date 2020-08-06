@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Home | ToDoApp')
+@section('title', 'Home')
 
 @section('bodycontent')
 

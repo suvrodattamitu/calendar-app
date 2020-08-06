@@ -15703,6 +15703,13 @@ and (orientation: landscape) {
   margin-top: 12px;
 }
 
+.el-button--default span{
+  color:#000000;
+}
+
+.chart-details{
+  margin-bottom: 50px;
+}
 /*@media only screen and (max-width: 768px)*/
 /*{*/
      /*.jumbotron .h1, .jumbotron h1 {*/

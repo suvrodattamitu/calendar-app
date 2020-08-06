@@ -1,45 +1,31 @@
 <template>
     <div>
-        <!-- <div class="wpsr_social_review_global_main_nav">
-            <span>{{ 'Clever Ninja' }}</span>
-            <router-link v-for="menuItem in topMenus" :key="menuItem.route" 
-            active-class="wpsr-tab-active" 
-            exact             
-            :to="{ name: menuItem.route }">
-                {{ menuItem.title }}
-            </router-link>
-            <a href="#" @click.prevent="logoutUser">
-                        <i class="clip-exit"></i> &nbsp;Log Out
-                    </a>
-
-        </div> -->
-
         <!--topnav start -->
         <nav class="navbar navbar-inverse navbar-fixed-top noborder br0 montserrat" role="navigation">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <router-link class="navbar-brand font26" to="/admin">
+                        
+                        
+
+                        <!-- <router-link class="navbar-brand font26" to="/admin">
                             <span class="lato fw300">24&nbsp;
                                 <span class="lato fw700">h<i class="fa fa-clock-o"></i>urs</span>
                             </span>
-                        </router-link>
-                       
-                        <router-link v-for="menuItem in topMenus" :key="menuItem.route" 
-                        active-class="wpsr-tab-active" 
-                        exact             
-                        :to="{ name: menuItem.route }">
-                            {{ menuItem.title }}
-                        </router-link>
+                        </router-link> -->
 
-                        <ul class="menu-dropdown-link">
-                            <li class="dropdown">
+                        <ul class="nav-ul">
+                            
+                            <li v-for="menuItem in topMenus" :key="menuItem.route" class="nav-li">
+                                <router-link  
+                                    active-class="wpsr-tab-active" 
+                                    exact             
+                                    :to="{ name: menuItem.route }"
+                                >
+                                    {{ menuItem.title }}
+                                </router-link>
+                            </li>
+                            <li class="dropdown nav-li pull-right">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ username }} 
                                 <span class="caret"></span></a>
@@ -49,33 +35,8 @@
                                 </ul>
                             </li>
                         </ul>
-                        
-                        <!-- <a href="#" @click.prevent="logoutUser">
-                            <i class="clip-exit"></i> &nbsp;Log Out
-                        </a> -->
-
-                                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ 'user name' }} 
-                                <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#" @click.prevent="logoutUser">Logout</a></li>
-                                </ul> -->
-
                 </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <!-- <div >
-                    <ul class="nav navbar-nav navbar-right text-capitalize opacity75">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ 'user name' }} 
-                            <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#" @click.prevent="logoutUser">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div> -->
-                <!-- /.navbar-collapse -->
+               
             </div>
         </nav>
         <!--topnav end -->
@@ -136,6 +97,42 @@
 
 <style lang="scss">
 
+@media only screen and (max-width: 736px) and (min-width: 260px){
+
+    .navbar-header a {
+        font-size: 10px !important;
+        padding: 20px 5px !important;
+    }
+    .nav-ul{
+        position: fixed;
+        width:100%;
+        height: 80px;
+        background:#63738D;
+        text-align: center;
+        transition: all .5s;
+        .nav-li{
+            display: inline-block;
+        }
+    }
+
+    .navbar-header {
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+
+
+}
+
+
+.navbar{
+    height: 80px;
+    .nav-ul{
+        .nav-li{
+            display: inline-block;
+        }
+    }
+}
+
 .el-date-editor{
     width: 130px !important;
 }
@@ -193,32 +190,6 @@
     }
 
 }
-
-// .wppayforms{
-//         margin-top:90px;
-//         @media only screen and (max-width: 600px) {
-//             margin-top:170px;
-//         }
-
-//         .payform_section_actions{
-
-//             display:flex;
-//             justify-content: space-between;
-
-//             .el-button{
-//                 color:#ffffff;
-//             }
-
-//             @media only screen and (max-width: 600px) {
-
-//                 display:flex;
-//                 flex-direction:column;
-
-//             }
-//         }
-//     }
-
-
 
 .menu-dropdown-link{
     float: right;
