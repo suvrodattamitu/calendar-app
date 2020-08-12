@@ -107,7 +107,7 @@
                                 label="Status">
 
                                 <template slot-scope="scope">
-                                {{ scope.row.completed?'Completed':'Pending' }}
+                                {{ scope.row.completed === 'complete'?'Completed':'Pending' }}
                                 </template>
                             </el-table-column>
 
@@ -241,10 +241,20 @@ export default {
 
             //bulk options
             bulkValue:'',
-            bulkOptions:[{
-                value: 'delete',
-                label: 'Delete All'
-            }],
+            bulkOptions:[
+                {
+                    value: 'delete',
+                    label: 'Delete All'
+                },
+                {
+                    value: 'pending',
+                    label: 'Pending'
+                },
+                {
+                    value: 'complete',
+                    label: 'Completed'
+                },
+            ],
             selectVisibleForBulkAction:false,
 
             welcomeData:{
@@ -457,7 +467,7 @@ export default {
 
               });
 
-            }else if (this.bulkValue == 'delete') {
+            }else {
 
                 this.selectVisibleForBulkAction = true;
             
@@ -470,7 +480,7 @@ export default {
 
             let bulkAction = this.bulkValue;
 
-            axios.post('/projects/delete-multiple', {
+            axios.post('/projects/bulk-action-multiple', {
 
                 rows: this.multipleSelection,
                 bulk: bulkAction, 

@@ -10,7 +10,7 @@
 
         <el-row>
             <div class="cards-container">
-                <el-col :md="7" class="card-col">
+                <el-col :span="6" class="card-col">
 
                     <el-card class="box-card">
                         <div slot="header" class="clearfix">
@@ -28,7 +28,7 @@
 
                 </el-col>
 
-                <el-col :md="7" class="card-col">
+                <el-col :span="6" class="card-col">
 
                     <el-card class="box-card">
                         <div slot="header" class="clearfix">
@@ -46,7 +46,7 @@
                     
                 </el-col>
 
-                <el-col :md="7" class="card-col">
+                <el-col :span="6" class="card-col">
 
                     <el-card class="box-card">
                         <div slot="header" class="clearfix">

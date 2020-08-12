@@ -77,22 +77,42 @@ class TaskController extends Controller
 
     }
 
-    public function deleteMultipleTodoTasks(Request $request) {
+    public function bulkActionMultipleTodoTasks(Request $request) {
         
         $tasks          = $request->rows;
         $project_slug   = $request->project_slug;
 
-        foreach($tasks as $task) {
-            $project = Auth::user()->projects()->where('slug',$project_slug)->first();
-            $task    = $project->tasks()->where('slug',$task['slug'])->delete();
+        if($request->bulk === 'delete'){
+            foreach($tasks as $task) {
+                $project = Auth::user()->projects()->where('slug',$project_slug)->first();
+                $task    = $project->tasks()->where('slug',$task['slug'])->delete();
+            }
+
+            return response()->json([
+
+                'message'       =>  'Tasks deleted successfully!',
+                'project_slug'  => $project_slug,
+
+            ],200);
+
+        }else{
+
+            foreach($tasks as $task) {
+                $project = Auth::user()->projects()->where('slug',$project_slug)->first();
+                $task    = $project->tasks()->where('slug',$task['slug'])->first();
+                $task->update([
+                    'completed'          => $request->bulk,
+                ]);
+            }
+
+            return response()->json([
+
+                'message'       =>  'Tasks deleted successfully!',
+                'project_slug'  => $project_slug,
+
+            ],200);
+
         }
-
-        return response()->json([
-
-            'message'       =>  'Tasks deleted successfully!',
-            'project_slug'  => $project_slug,
-
-        ],200);
 
     }
 

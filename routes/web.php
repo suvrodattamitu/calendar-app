@@ -29,13 +29,13 @@ Route::get('/project/{slug}','Todos\ProjectController@editTodoProject');
 Route::post('/project/{slug}','Todos\ProjectController@updateTodoProject');
 Route::get('/get-project-tasks','Todos\ProjectController@showTodoProjectTasks');
 Route::delete('/project/delete/{project_slug}','Todos\ProjectController@deleteTodoProject');
-Route::post('/projects/delete-multiple','Todos\ProjectController@deleteMultipleTodoProjects');
+Route::post('/projects/bulk-action-multiple','Todos\ProjectController@bulkActionMultipleTodoProjects');
 
 //tasks
 Route::post('/add-task','Todos\TaskController@addTodoTask');
 Route::post('/project/task/{task_slug}','Todos\TaskController@editTodoTask');
 Route::post('/task/delete/{task_slug}','Todos\TaskController@deleteTodoTask');
-Route::post('/tasks/delete-multiple','Todos\TaskController@deleteMultipleTodoTasks');
+Route::post('/tasks/bulk-action-multiple','Todos\TaskController@bulkActionMultipleTodoTasks');
 
 //incomes
 Route::get('/all-incomes','Budgets\IncomeController@getBudgetIncomes');

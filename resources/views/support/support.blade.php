@@ -7,8 +7,7 @@
 
     <style>
 
-        /* Click To FB Messenger Main Panel */
-        .fb-style3{
+        .fb-chat{
             display: block;
             position: fixed;
             top: 21%;
@@ -23,8 +22,7 @@
             z-index: 9999;
         }
 
-        /* Click To FB Messenger Floating Button */
-        .fb-style3 .fb-button{
+        .fb-chat .fb-button{
             position: absolute;
             top: 45%;
             bottom: -24px;
@@ -38,22 +36,20 @@
             box-shadow: -2px 0px 3px rgba(68, 68, 68, 0.59);
             cursor: pointer;
         }
-        .fb-style3 .fb-button img{
+        .fb-chat .fb-button img{
             width: 33px;
             margin-bottom: -7px;
             cursor: pointer;
         }
 
-        /* Floating Panel Container */
-        .fb-style3 .fb-panel{
+        .fb-chat .fb-panel{
             margin-bottom: 5%;
             width: 260px;
             border-radius: 10px 0 0 10px;
-            /* box-shadow: 0px 3px 7px rgba(12, 12, 12, 0.18); */
         }
 
         /* Floating Panel Header */
-        .fb-style3 .fb-panel .fb-header{
+        .fb-chat .fb-panel .fb-header{
             padding: 15px 10px;
             border-radius: 8px 0;
             text-align: center;
@@ -61,45 +57,43 @@
             background:#3578E5;
             color:#ffffff;
         }
-        .fb-style3 .fb-header img{
+        .fb-chat .fb-header img{
             padding: 5px;
             width: 30%;
             border: 2px solid #fff;
             border-radius: 100%;
         }
-        .fb-style3 .fb-header h2{
+        .fb-chat .fb-header h2{
             padding-top: 5px;
             margin-bottom: 0;
             font-size: 18px;
             font-weight: 700;
             line-height: 30px;
         }
-        .fb-style3 .fb-header p{
+        .fb-chat .fb-header p{
             margin-bottom: 0;
             font-size: 13px;
         }
 
-        /* Floating Panel Body */
-        .fb-style3 .fb-panel .fb-body{
+        .fb-chat .fb-panel .fb-body{
             padding: 20px 10px 0;
             text-align: center;
         }
-        .fb-style3 .fb-body p{
+        .fb-chat .fb-body p{
             margin-bottom: 0;
             font-size: 14px;
         }
 
-        /* Floating Panel Footer */
-        .fb-style3 .fb-panel .fb-footer{
+        .fb-chat .fb-panel .fb-footer{
             padding: 20px 0px 0px;
             text-align: center;
             
         }
-        .fb-style3 .fb-footer a{
+        .fb-chat .fb-footer a{
             text-decoration: none;
             color: inherit;
         }
-        .fb-style3 .fb-footer .fb-msg-button{
+        .fb-chat .fb-footer .fb-msg-button{
             position: relative;
             margin: auto;
             padding: 6px 20px;
@@ -110,13 +104,12 @@
             background:#3578E5;
             color:#ffffff;
         }
-        .fb-style3 .fb-footer .fb-msg-button:hover{
+        .fb-chat .fb-footer .fb-msg-button:hover{
             box-shadow: 0px 0px 10px #999;
         }
 
-        /* Common CSS */
-        .fb-style3 .fb-footer .fb-msg-button,
-        .fb-style3 .fb-footer .fb-msg-button:hover{
+        .fb-chat .fb-footer .fb-msg-button,
+        .fb-chat .fb-footer .fb-msg-button:hover{
             -webkit-transition: all .3s ease-in-out;
             -moz-transition: all .3s ease-in-out;
             -ms-transition: all .3s ease-in-out;
@@ -124,17 +117,20 @@
             transition: all .3s ease-in-out;
         }
 
-
+        .support h1,p{
+            text-align:center;
+        }
 
     </style>
 
 </head>
 <body>
-    <div>
-        <h1>Thank you for support</h1>
+    <div class="support">
+        <h1>Do you need exaprt support?</h1>
+        <p>Chat with live person now.</p>
 
         <!-- Click To FB Messenger Container -->
-        <div class="fb-style3">
+        <div class="fb-chat">
             <!-- Click To FB Messenger Button -->
             <div class="fb-button inOut">
                 <img class="fa-messenger" src="{{ asset('assets/images/support/messenger.png') }}" alt=""/>
@@ -171,16 +167,15 @@
 
         $(document).ready(function(){
 
-            /* Click To FB Messenger Sidebar Function */
             $('.fb-button').click (function(event){
                 
                 event.preventDefault();
                 
                 if( $ (this).hasClass('inOut') ){
-                    $('.fb-style3').stop().animate({right:'-260px'},500 );
+                    $('.fb-chat').stop().animate({right:'-260px'},500 );
 
                 }else{
-                    $('.fb-style3').stop().animate({right:'0px'},500 );
+                    $('.fb-chat').stop().animate({right:'0px'},500 );
                 } 
 
                 $(this).toggleClass('inOut');
@@ -191,8 +186,6 @@
 
             $(".fb-msg-button").on('click', function(event){
 
-                // event.stopPropagation();
-                // event.stopImmediatePropagation();
                 event.preventDefault();
 
                 let messengerUrl = 'https://www.messenger.com/t/';

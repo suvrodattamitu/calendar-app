@@ -157,19 +157,45 @@ class ProjectController extends Controller
 
     }
 
-    public function deleteMultipleTodoProjects(Request $request){
+    public function bulkActionMultipleTodoProjects(Request $request){
 
         $projects = $request->rows;
 
-        foreach($projects as $project){
-            $project = Auth::user()->projects()->where('slug',$project['slug'])->delete();
+        if($request->bulk === 'delete'){
+    
+            foreach($projects as $project){
+                $project = Auth::user()->projects()->where('slug',$project['slug'])->delete();
+            }
+
+            return response()->json([
+
+                'message'   =>  'Projects deleted successfully!',
+    
+            ],200);
+
         }
 
-        return response()->json([
+        else{
+    
+            foreach($projects as $project){
 
-            'message'   =>  'Projects deleted successfully!',
+                $project = Auth::user()->projects()->where('slug',$project['slug'])->first();
 
-        ],200);
+                $project->update([
+                    'completed'          => $request->bulk,
+                ]);
+                //$project = Auth::user()->projects()->where('slug',$project['slug'])->delete();
+            }
+
+            return response()->json([
+
+                'message'   =>  'Projects status changed successfully!',
+    
+            ],200);
+
+        }
+
+        
 
     }
 

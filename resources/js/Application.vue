@@ -123,6 +123,14 @@
 
 }
 
+.el-icon-edit{
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.el-icon-delete{
+    cursor: pointer; 
+}
 
 .navbar{
     height: 80px;
