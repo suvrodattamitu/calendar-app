@@ -7,10 +7,6 @@
                         <v-toolbar flat color="white">
                         
                         <el-button type="primary" size="medium" @click="openEventModal">New Event</el-button>
-                        <!-- <el-button type="primary" size="medium" @click="setToday">Today</el-button> -->
-                        <!-- <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
-                            Today
-                        </v-btn> -->
 
                         <v-btn fab text small color="grey darken-2" @click="prev">
                             <span class="material-icons">navigate_before</span>
@@ -287,7 +283,6 @@
             .then(response => {
 
               this.events = response.data.events;
-              console.log(response.data);
 
             })
             .catch(error => {
@@ -378,7 +373,6 @@
         this.$refs.calendar.next()
       },
       showEvent ({ nativeEvent, event }) {
-        console.log('showEvent');
         
         this.errors = [];
         const open = () => {

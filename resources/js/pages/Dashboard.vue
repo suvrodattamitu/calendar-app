@@ -6,7 +6,6 @@
                     <div slot="header" class="clearfix">
                         <span>Recent Events</span>
                         <i class="el-icon-alarm-clock icon-style"></i>
-                            <!-- <span class="dashicons"></span> -->
                     </div>
                     <div  v-if="events.length">
                         <div v-for="(event,index) in events" :key="index" class="text item">
@@ -58,21 +57,117 @@
 
             </el-col>
         </el-row>
+
+        <div class="wsk-float">
+            <p>Are you intereseted to buy or use this app for free?</p>
+            <a class="pulse-button" href="https://fluentmanagement.fluentpos.com/support" target="_blank">
+                <span>Help Desk</span>
+            </a>
+        </div>
+
     </div>
 </template>
 
-
 <style lang="scss">
-    .icon-left{
-        cursor: move;
-        font-size:16px;
-        padding:2px;
-    }
-    .icon-style{
-        float: right;
-        padding: 3px 0
+
+    //support button 
+        
+
+        .has-dim{
+            height: 1000px;
+        }
+        .wsk-float{
+            display: flex;
+            position: fixed;
+            bottom:40px;
+            right: 40px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .wsk-float a, .wsk-float a span{
+            color:#ffffff;
+            //display: block;
+            text-decoration: none;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            //margin-left:2px;
+        }
+
+        .pulse-button {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            border: none;
+            box-shadow: 0 0 0 0 rgba(41, 167, 26, .7);
+            border-radius: 50%;
+            background-color: #29a71a;
+            // background-image: url(http://pngimg.com/uploads/whatsapp/whatsapp_PNG4.png);
+            background-size:cover;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+            -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+            -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+            animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+        }
+        .pulse-button:hover 
+        {
+            -webkit-animation: none;-moz-animation: none;-ms-animation: none;animation: none;
+        }
+
+        @-webkit-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+        @-moz-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+        @-ms-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+        @keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+    
+    //support button end
+
+    .dashboard-container{
+        margin-top:90px;
+        @media only screen and (max-width: 600px) {
+            margin-top:170px;
+        }
+
+        .icon-style{
+            margin-right: 5px;
+            font-size:16px;
+            font-weight: 700;
+        }
+
+    .text {
+            font-size: 14px;
+            .el-icon-date{
+                margin-right: 5px;
+                font-size:16px;
+                font-weight: 700;
+            }
+        }
+
+        .item {
+            margin-bottom: 18px;
+        }
+
+        .clearfix:before,
+        .clearfix:after {
+            display: table;
+            content: "";
+        }
+        .clearfix:after {
+            clear: both
+        }
+
+        .card-col {
+            width: 300px;
+            margin-bottom:15px;
+            .box-card{
+                width: 100%;
+            }
+        }
     }
 </style>
+
 <script>
 
 import moment from 'moment';
@@ -115,7 +210,6 @@ export default {
                     this.projects   = response.data.projects;
                     this.income     = response.data.income;
                     this.expense    = response.data.expense;
-                    console.log(response.data);
 
                 })
                 .catch(error => {
@@ -128,17 +222,8 @@ export default {
         },
     },
 
-    // computed:{
-
-    //     globalSettings(){
-    //         return  this.$store.getters.getSettings;
-    //     }
-
-    // },
-
     mounted(){
         this.getEvents();
-        console.log('Dashboard');
     }
 }
 </script>

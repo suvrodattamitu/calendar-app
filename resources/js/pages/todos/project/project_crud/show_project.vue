@@ -397,7 +397,6 @@ export default {
                     this.tasks   = project.tasks;
                     this.has_tasks = project.tasks.length;
                     this.user    = project.user;
-                    console.log(project.tasks);
 
                 })
                 .catch(error => {
@@ -411,7 +410,6 @@ export default {
 
         //categories crud delete
         confirmDelete(deleteData) {
-            console.log(deleteData);
             this.deletingData = deleteData;
             this.deleteDialogVisible = true;
 
@@ -424,8 +422,6 @@ export default {
             axios.post('/task/delete/'+slug,{'project_slug':this.project_slug})
                 .then(response => {
                     
-                    console.log(response.data);
-
                     this.$notify({
                         title: 'Success',
                         message: 'Successfully Deleted!',
@@ -491,7 +487,6 @@ export default {
             })
                 .then(response => {
 
-                    console.log(response.data);
                     this.$notify({
 
                         title: 'Success',

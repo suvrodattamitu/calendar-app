@@ -4,23 +4,6 @@
 
         <el-row style="margin-top:60px;">
             <el-col :md="{span: 22, offset: 1}">
-                <!-- start: PAGE HEADER -->
-                <!-- <div class="el-row">
-                    <div class="col-sm-12">
-                        <ol class="breadcrumb">
-                            <li>
-                                <i class="clip-file"></i>
-                                <router-link to="/admin">
-                                    Todos
-                                </router-link>
-                            </li>
-                            <li class="active">
-                                Projects
-                            </li>
-                        </ol>
-                    </div>
-                </div> -->
-                <!-- end: PAGE HEADER -->
 
                 <!-- start: PAGE CONTENT -->
                 <div v-if="!projects.length">
@@ -282,21 +265,18 @@ export default {
     methods: {
 
         addedProject(){
-            console.log('here i am');
             this.addProjectModal = false;
             this.allProjects();
         },
 
         editedProject(){
 
-            console.log('here i am');
             this.openEditModal = false;
             this.allProjects();
         },
 
         openDialogModal(val){
             this.addProjectModal = val;
-            //console.log()
         },
 
         openEditDialogModal(val){
@@ -359,14 +339,10 @@ export default {
                     this.projects     = all_projects;
                     this.total        = response.data.total;
                     this.hasProjects  = all_projects.length;
-                    console.log(all_projects);
 
                 })
                 .catch(error => {
-                    // if(error.response.status === 500){
-                    //     this.allProjects();
-                    // }
-                    console.log('errors found ',error.response);
+                    console.log(error.response);
                 })
                 .then(() => {
                     this.loading = false;  
@@ -389,8 +365,6 @@ export default {
             axios.delete('/project/delete/'+slug)
                 .then(response => {
                     
-                    console.log(response.data);
-
                     this.$notify({
                         title: 'Success',
                         message: 'Successfully Deleted!',
@@ -430,13 +404,8 @@ export default {
             axios.get('/project/'+editData.slug)
             .then(response => {
 
-               
                 this.form = response.data.project;
-                console.log('i am call')
                 this.openEditModal = true;
-                //console.log(response.data);
-                // this.itemName = response.data.editData.name;
-                // this.hasEditData = true;
 
             })
                 .catch(error => {
@@ -487,8 +456,6 @@ export default {
 
             })
                 .then(response => {
-
-                    console.log(response.data);
                     this.$notify({
 
                         title: 'Success',
@@ -497,9 +464,7 @@ export default {
                         position: 'top-right'
 
                     });
-
                     this.allProjects();
-
                 })
                 .catch(error => {
                     this.$notify({

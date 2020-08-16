@@ -55,6 +55,7 @@ Route::post('/expenses/delete-multiple','Budgets\ExpenseController@deleteMultipl
 
 //budgets
 Route::get('/get-budgets','Budgets\BudgetController@getBudgets');
+Route::post('//budget/reports','Budgets\BudgetController@budgetReports');
 
 //settings
 Route::get('/get-settings-credentials','Settings\SettingsController@getSettings');
@@ -62,3 +63,9 @@ Route::post('/settings/update','Settings\SettingsController@updateSettings');
 
 //global
 Route::get('/get-global-credentials','Settings\SettingsController@getGlobalSettings');
+
+//notes
+Route::get('/all-notes','Notes\NoteController@allNotes');
+Route::post('/update-note','Notes\NoteController@updateNote');
+Route::post('/save-note','Notes\NoteController@saveNewNote');
+Route::delete('/delete-note/{id}','Notes\NoteController@deleteNote');

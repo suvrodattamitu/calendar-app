@@ -1,5 +1,13 @@
 {
     "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
     "/js/boot.js": "/js/boot.js",
-    "/css/app.css": "/css/app.css"
+    "/js/budgets.js": "/js/budgets.js",
+    "/js/dashboard.js": "/js/dashboard.js",
+    "/js/expenses.js": "/js/expenses.js",
+    "/js/incomes.js": "/js/incomes.js",
+    "/js/projectDetails.js": "/js/projectDetails.js",
+    "/js/settings.js": "/js/settings.js",
+    "/js/stickyNote.js": "/js/stickyNote.js",
+    "/js/todos.js": "/js/todos.js"
 }

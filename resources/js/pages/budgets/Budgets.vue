@@ -1,10 +1,19 @@
 <template>
     <div class="dashboard-container" v-loading="loading" element-loading-text="Loading...Please Wait...">
         
+
+
+
         <el-row>
             <div :md="12" :offset="1" class="button-group">
-                <el-button type="primary" @click="redirectToExpenses">Expenses</el-button>
+                <div class="button-box bg-1">
+                    <button class="fancy-button button--wapasha button--round-s" @click="redirectToExpenses">Expenses</button>
+                    <button class="fancy-button button--wapasha button--round-s" @click="redirectToIncomes">Incomes</button>
+                    <button class="fancy-button button--wapasha button--round-s" @click="redirectToReports">Reports</button>
+                </div>
+                <!-- <el-button type="primary" @click="redirectToExpenses">Expenses</el-button>
                 <el-button type="primary" @click="redirectToIncomes">Incomes</el-button>
+                <el-button type="primary" @click="redirectToReports">Reports</el-button> -->
             </div>
         </el-row>
 
@@ -98,6 +107,13 @@
                 </div>
             </el-col> -->
 
+        
+        <div class="container">
+            <div class="content">
+
+            </div>
+        </div>
+
         </el-row>
 
     </div>
@@ -105,28 +121,96 @@
 
 <style lang="scss">
 
-    .button-group{
+    .button-box {
+        padding: 4.5em 0;
+        display: -webkit-flex;
+        display: -ms-flexbox;
         display: flex;
-        align-items: flex-end;
-        justify-content: flex-end;
-        //margin:0px 8px;
-        margin-right:72px;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-justify-content: center;
+        justify-content: center;
+    }
+
+    .bg-1 .button {
+        color: #37474f;
+        border-color: #37474f;
+    }
+
+    .fancy-button {
+        float: left;
+        min-width: 150px;
+        max-width: 250px;
+        display: block;
+        margin: 1em;
+        padding: 1em 2em;
+        border: none;
+        background: none;
+        color: inherit;
+        vertical-align: middle;
+        position: relative;
+        z-index: 1;
+        -webkit-backface-visibility: hidden;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .fancy-button.button--round-s {
+        border-radius: 5px;
+    }
+
+    /* Wapasha */
+    .fancy-button.button--wapasha {
+        background: #37474f;
+        color: #fff;
+        -webkit-transition: background-color 0.3s, color 0.3s;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    .button--wapasha.button--inverted {
+        background: #fff;
+        color: #37474f;
+    }
+    .button--wapasha::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 2px solid #3f51b5;
+        z-index: -1;
+        border-radius: inherit;
+        opacity: 0;
+        -webkit-transform: scale3d(0.6, 0.6, 1);
+        transform: scale3d(0.6, 0.6, 1);
+        -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+        transition: transform 0.3s, opacity 0.3s;
+        -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+        transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+    }
+    .button--wapasha.button--inverted::before {
+        border-color: #7986cb;
+    }
+    .button--wapasha:hover {
+        background-color: #fff;
+        color: #3f51b5;
+    }
+    .button--wapasha.button--inverted:hover {
+        background-color: #37474f;
+        color: #7986cb;
+    }
+    .button--wapasha:hover::before {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+        opacity: 1;
     }
 
     .cards-container{
         display: flex;
         align-items: center;
         justify-content: center;
-        // flex-direction: column;
-
         .card-col {
             margin:0px 8px;
-            // width: 320px !important;
-            // margin-bottom:15px;
-            // .box-card{
-            //     //width:320px;
-            //     width: 100%;
-            // }
         }
 
     }
@@ -248,6 +332,10 @@ export default {
     components:{LineChart,BarChart},
 
     methods:{
+
+        redirectToReports(){
+            this.$router.push('/admin/budgets/reports')
+        },
 
         redirectToExpenses(){
             this.$router.push('/admin/budgets/expenses')

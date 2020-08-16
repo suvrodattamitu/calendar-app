@@ -1,13 +1,24 @@
-import Todos from './../pages/todos/project/projects';
-import Budgets from './../pages/budgets/Budgets';
-import Dashboard from './../pages/Dashboard';
-import Calendar from './../pages/Calendar';
-import ProjectDetails from './../pages/todos/project/project_crud/show_project';
-import Settings from '../pages/Settings';
+// import Todos from './../pages/todos/project/projects';
+// import Budgets from './../pages/budgets/Budgets';
+// import Dashboard from './../pages/Dashboard';
+// import Calendar from './../pages/Calendar';
+// import ProjectDetails from './../pages/todos/project/project_crud/show_project';
+// import Settings from '../pages/Settings';
+// import StickyNote from '../pages/sticky-notes/StickyNote';
+// import Expenses from './../pages/budgets/Expenses';
+// import Incomes from './../pages/budgets/Incomes';
 
+import Reports from './../pages/budgets/reports/Reports';//problem in lazy load
 
-import Expenses from './../pages/budgets/Expenses';
-import Incomes from './../pages/budgets/Incomes';
+const Dashboard = ()    => import(/* webpackChunkName: "js/dashboard" */'./../pages/Dashboard');
+const Calendar = ()     => import(/* webpackChunkName: "js/calendar" */'./../pages/Calendar');
+const Todos = ()        => import(/* webpackChunkName: "js/todos" */'./../pages/todos/project/projects');
+const Expenses = ()     => import(/* webpackChunkName: "js/expenses" */'./../pages/budgets/Expenses');
+const Incomes = ()      => import(/* webpackChunkName: "js/incomes" */'./../pages/budgets/Incomes');
+const Budgets = ()      => import(/* webpackChunkName: "js/budgets" */'./../pages/budgets/Budgets');
+const Settings = ()      => import(/* webpackChunkName: "js/settings" */'../pages/Settings');
+const StickyNote = ()      => import(/* webpackChunkName: "js/stickyNote" */'../pages/sticky-notes/StickyNote');
+const ProjectDetails = ()  => import(/* webpackChunkName: "js/projectDetails" */'./../pages/todos/project/project_crud/show_project');
 
 export const routes = [
 
@@ -42,6 +53,12 @@ export const routes = [
         meta:{title: 'Budgets'}
     },
     {
+        name: 'notes',
+        path: '/admin/notes',
+        component: StickyNote,
+        meta:{title: 'Notes'}
+    },
+    {
         name: 'settings',
         path: '/admin/settings',
         component: Settings,
@@ -58,6 +75,13 @@ export const routes = [
         path: '/admin/budgets/expenses',
         component: Expenses,
         meta:{title: 'Expenses'}
+    },
+
+    {
+        name: 'budget-report',
+        path: '/admin/budgets/reports',
+        component: Reports,
+        meta:{title: 'Reports'}
     },
 
 ];

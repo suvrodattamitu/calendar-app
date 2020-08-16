@@ -5,21 +5,14 @@
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                        
-                        
-
-                        <!-- <router-link class="navbar-brand font26" to="/admin">
-                            <span class="lato fw300">24&nbsp;
-                                <span class="lato fw700">h<i class="fa fa-clock-o"></i>urs</span>
-                            </span>
-                        </router-link> -->
 
                         <ul class="nav-ul">
                             
                             <li v-for="menuItem in topMenus" :key="menuItem.route" class="nav-li">
                                 <router-link  
                                     active-class="wpsr-tab-active" 
-                                    exact             
+                                    exact  
+                                    :class="[$route.fullPath.includes('/budgets') && menuItem.route === 'budgets' ? 'wpsr-tab-active router-link-active wpsr-tab' : '']"           
                                     :to="{ name: menuItem.route }"
                                 >
                                     {{ menuItem.title }}
@@ -201,7 +194,6 @@
 
 .menu-dropdown-link{
     float: right;
-   // position: fixed;
 }
 
 .arrow-btn{
@@ -217,17 +209,12 @@
       text-decoration: none;
       color: #fff;
       font-size: 14px;
-      //text-transform: capitalize;
       padding: 20px 15px;
       display: inline-block;
       transition: 0.4s;
-     // border-bottom: 2px solid transparent;
       &.wpsr-tab-active{
-          //border-bottom: 2px solid #409eff;
           border-bottom: 1px solid rgb(255, 208, 75);//#409eff;
           color: rgb(255, 208, 75);
-        //background-color: #b030a8;
-        //border-bottom: 2px solid #409EFF; //ffd65b;
       }
 
       &:focus{
@@ -277,10 +264,10 @@
                         route: 'budgets',
                         title: 'Budgets'
                     },
-                    // {
-                    //     route: 'settings',
-                    //     title: 'Settings'
-                    // }
+                    {
+                        route: 'notes',
+                        title: 'Notes'
+                    }
                 ]
             },
 

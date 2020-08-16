@@ -86,7 +86,6 @@ export default {
                         this.currency       = settings.general_settings.currency_settings.currency_code;
                     }
 
-                    console.log(response.data);
                     this.currencies = response.data.currencies;
 
                 })
@@ -110,7 +109,6 @@ export default {
             axios.post('/settings/update',updateData)
                 .then(response => {
 
-                    console.log(response.data);
                     this.$store.dispatch('settingsAction',response.data.settings);
 
                     this.getSettings();

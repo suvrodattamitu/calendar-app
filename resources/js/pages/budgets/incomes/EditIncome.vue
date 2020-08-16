@@ -64,15 +64,10 @@ export default {
     methods:{
         updateIncome(){
 
-            //this.loading = true;
             let editData = this.form;
 
             axios.post('/income/'+editData.id,editData)
                 .then(response => {
-
-                    console.log(response.data);
-                    // this.openEditModal = false;
-                    // this.allIncomes();
 
                     this.$emit('editedIncome', false);
 
@@ -106,8 +101,7 @@ export default {
                     }
                 })
                 .then(() => {
-                    //this.addIncomeModal = false;
-                    //this.loading = false;
+                   
                 });
 
        
@@ -115,7 +109,7 @@ export default {
     },
 
     mounted(){
-        console.log('i am mounted');
+       
     }
 
 }

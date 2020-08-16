@@ -417,9 +417,8 @@ export default {
             axios.get('/expense/'+editData.id)
             .then(response => {
 
-               
                 this.form = response.data.expense;
-                console.log('i am call')
+                // console.log('i am call');
                 this.openEditModal = true;
                 //console.log(response.data);
                 // this.itemName = response.data.editData.name;

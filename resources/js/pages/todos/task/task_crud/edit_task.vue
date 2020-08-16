@@ -54,7 +54,6 @@ export default {
             axios.post('/task/'+editData.slug,editData)
                 .then(response => {
 
-                    console.log(response.data);
                     this.$emit('editedTask', false);
                     this.$notify({
 
@@ -86,8 +85,7 @@ export default {
                     }
                 })
                 .then(() => {
-                    //this.addProjectModal = false;
-                    //this.loading = false;
+                    
                 });
 
        
@@ -95,7 +93,7 @@ export default {
     },
 
     mounted(){
-        console.log('i am mounted from edit');
+        
     }
 
 }

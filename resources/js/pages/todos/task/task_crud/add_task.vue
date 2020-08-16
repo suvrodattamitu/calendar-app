@@ -55,8 +55,6 @@ export default {
             axios.post('/add-task',this.form)
                 .then(response => {
 
-                    console.log('task added',response.data);
-
                     this.$emit('addedTask', false);
                     this.$notify({
 

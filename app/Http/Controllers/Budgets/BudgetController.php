@@ -92,4 +92,66 @@ class BudgetController extends Controller
         ],200);
 
     }
+
+    public function budgetReports(Request $request){
+
+        $fromDate   = $request->from;
+        $toDate     = $request->to;
+
+        $from   = date('Y-m-d', strtotime(substr($fromDate,0,10)));
+        $to     = date('Y-m-d', strtotime(substr($toDate,0,10)));
+
+        $rangeExpense = Expense::whereBetween('created_at', [$from.' 00:00:00',$to. ' 23:59:59'])
+                        ->sum('amount');
+        
+        $rangeSell    = Income::whereBetween('created_at', [$from.' 00:00:00', $to. ' 23:59:59'])
+                        ->sum('amount');
+
+        return response()->json([
+
+            'message'        => 'Reports found',
+            'range_sell'      => $rangeSell,
+            'range_expense'   => $rangeExpense,
+            'range_profit'    => ( $rangeSell-$rangeExpense )
+
+        ]);
+
+        // $fromToOrders   = DB::table('orders')
+        //                 ->select(
+        //                     DB::raw('YEAR(created_at) as year'),
+        //                     DB::raw('MONTH(created_at) as month'),
+        //                     DB::raw('DAY(created_at) as day'),
+        //                     DB::raw('SUM(paid) as sum')
+        //                 )
+        //                 ->whereYear('created_at', '=', Carbon::now()->year)
+        //                 ->orWhereYear('created_at', '=', Carbon::now()->subYear()->year)
+        //                 ->groupBy('year', 'month','day')
+        //                 ->get();
+
+        // $fromToExpenses = DB::table('expenses')
+        //                 ->select(
+        //                     DB::raw('YEAR(created_at) as year'),
+        //                     DB::raw('MONTH(created_at) as month'),
+        //                     DB::raw('DAY(created_at) as day'),
+        //                     DB::raw('SUM(total_expense) as sum')
+        //                 )
+        //                 ->whereYear('created_at', '=', Carbon::now()->year)
+        //                 ->orWhereYear('created_at', '=', Carbon::now()->subYear()->year)
+        //                 ->groupBy('year', 'month','day')
+        //                 ->get(); 
+
+        // return response()->json([
+
+        //     'message'       => 'Reports found',
+        //     'from'  => $from,
+        //     'to'    => $to,
+        //     'range_expense'     => $rangeExpense,
+        //     'range_sell'        => $rangeSell,
+        //     'fromToOrders'      => $fromToOrders,
+        //     'fromToExpenses'    => $fromToExpenses,
+        //     'request'   => $request->all()
+
+        // ]);
+
+    }
 }

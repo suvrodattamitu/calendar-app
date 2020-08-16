@@ -9,8 +9,9 @@
         <!-- Fonts -->
         <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet"> -->
 
-        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+        <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"> -->
         <link rel="icon" type="image/png" href="{{ asset('assets/images/logo/logo.png') }}" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <link href="{{ asset('assets/css/materialdesignicons.min.css') }}" rel="stylesheet" charset="utf-8" type='text/css' >
         <link href="{{ asset('assets/css/all.css') }}" rel="stylesheet" charset="utf-8" type='text/css' >

@@ -54,10 +54,6 @@ export default {
             axios.post('/project/'+editData.slug,editData)
                 .then(response => {
 
-                    console.log(response.data);
-                    // this.openEditModal = false;
-                    // this.allProjects();
-
                     this.$emit('editedProject', false);
 
                     this.$notify({
@@ -90,8 +86,7 @@ export default {
                     }
                 })
                 .then(() => {
-                    //this.addProjectModal = false;
-                    //this.loading = false;
+                    
                 });
 
        
@@ -99,7 +94,7 @@ export default {
     },
 
     mounted(){
-        console.log('i am mounted');
+        
     }
 
 }
