@@ -418,7 +418,6 @@ export default {
             axios.get('/get-budgets')
                 .then(response => {
 
-                    console.log(response.data);
                     //daily budget
                     this.dailyExpense = response.data.dailyExpense;
                     this.dailyIncome  = response.data.dailyIncome;

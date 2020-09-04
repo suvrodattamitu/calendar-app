@@ -337,9 +337,14 @@
 
         axios.post('/create-event',info)
             .then(response => {
-
-
+              
               this.dialog = false;
+
+              this.name = '';
+              this.details = '';
+              this.start = '';
+              this.end = '';
+
               this.getEvents();
               this.$notify({
                   title: 'Success',

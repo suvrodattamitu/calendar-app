@@ -119,7 +119,6 @@ export default {
 
         fillData(incomes,expenses,profits){
 
-            console.log(incomes,' ex ',expenses, ' pro ',profits);
             let reports = [];
             reports.push(incomes);
             reports.push(expenses);
@@ -202,10 +201,7 @@ export default {
             this.loadChart = false;
 
             axios.post('/budget/reports',info)
-                .then(response => {
-
-                    console.log('budget reports',response);
-                    
+                .then(response => {                    
                     if( response.data ) {
                         
                         this.totalSale      = response.data.range_sell;
@@ -213,22 +209,6 @@ export default {
                         this.totalProfit    =  response.data.range_profit;
 
                         this.fillData(this.totalSale,this.totalExpense,this.totalProfit);
-
-                        // this.pieChartData.datasets[0].data = [];
-                        // this.barChartData.datasets[0].data = [];
-                            
-                        // let reports = [];
-                        // reports.push(this.totalSale);
-                        // reports.push(this.totalExpense);
-                        // reports.push(this.profit);
-
-                        // this.pieChartData.datasets[0].data = reports;
-                        // this.barChartData.datasets[0].data = reports;
-
-                        // this.loadChart = true;
-
-                        // this.loading = false; 
-                        // this.scrollBottomToTop();
 
                     }
                     

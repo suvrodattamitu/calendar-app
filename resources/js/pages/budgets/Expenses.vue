@@ -269,21 +269,18 @@ export default {
     methods: {
 
         addedExpense(){
-            console.log('here i am');
             this.addExpenseModal = false;
             this.allExpenses();
         },
 
         editedExpense(){
 
-            console.log('here i am');
             this.openEditModal = false;
             this.allExpenses();
         },
 
         openDialogModal(val){
             this.addExpenseModal = val;
-            //console.log()
         },
 
         openEditDialogModal(val){
@@ -346,7 +343,6 @@ export default {
                     this.expenses     = all_expenses;
                     this.total        = response.data.total;
                     this.hasExpenses  = all_expenses.length;
-                    console.log(response.data);
 
                 })
                 .catch(error => {
@@ -376,8 +372,6 @@ export default {
             axios.delete('/expense/delete/'+id)
                 .then(response => {
                     
-                    console.log(response.data);
-
                     this.$notify({
                         title: 'Success',
                         message: 'Successfully Deleted!',
@@ -418,11 +412,7 @@ export default {
             .then(response => {
 
                 this.form = response.data.expense;
-                // console.log('i am call');
                 this.openEditModal = true;
-                //console.log(response.data);
-                // this.itemName = response.data.editData.name;
-                // this.hasEditData = true;
 
             })
                 .catch(error => {
@@ -474,7 +464,6 @@ export default {
             })
                 .then(response => {
 
-                    console.log(response.data);
                     this.$notify({
 
                         title: 'Success',

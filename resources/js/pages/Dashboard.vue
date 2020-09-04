@@ -58,12 +58,12 @@
             </el-col>
         </el-row>
 
-        <div class="wsk-float">
+        <!-- <div class="wsk-float">
             <p>Are you intereseted to buy or use this app for free?</p>
             <a class="pulse-button" href="https://fluentmanagement.fluentpos.com/support" target="_blank">
                 <span>Help Desk</span>
             </a>
-        </div>
+        </div> -->
 
     </div>
 </template>

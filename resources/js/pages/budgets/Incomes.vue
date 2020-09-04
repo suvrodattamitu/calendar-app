@@ -269,21 +269,18 @@ export default {
     methods: {
 
         addedIncome(){
-            console.log('here i am');
             this.addIncomeModal = false;
             this.allIncomes();
         },
 
         editedIncome(){
 
-            console.log('here i am');
             this.openEditModal = false;
             this.allIncomes();
         },
 
         openDialogModal(val){
             this.addIncomeModal = val;
-            //console.log()
         },
 
         openEditDialogModal(val){
@@ -346,14 +343,10 @@ export default {
                     this.incomes     = all_incomes;
                     this.total        = response.data.total;
                     this.hasIncomes  = all_incomes.length;
-                    console.log(response.data);
 
                 })
                 .catch(error => {
-                    // if(error.response.status === 500){
-                    //     this.allIncomes();
-                    // }
-                    console.log('errors found ',error.response);
+                    console.log(error.response);
                 })
                 .then(() => {
                     this.loading = false;  
@@ -376,8 +369,6 @@ export default {
             axios.delete('/income/delete/'+id)
                 .then(response => {
                     
-                    console.log(response.data);
-
                     this.$notify({
                         title: 'Success',
                         message: 'Successfully Deleted!',
@@ -416,14 +407,9 @@ export default {
 
             axios.get('/income/'+editData.id)
             .then(response => {
-
                
                 this.form = response.data.income;
-                console.log('i am call')
                 this.openEditModal = true;
-                //console.log(response.data);
-                // this.itemName = response.data.editData.name;
-                // this.hasEditData = true;
 
             })
                 .catch(error => {
@@ -475,7 +461,6 @@ export default {
             })
                 .then(response => {
 
-                    console.log(response.data);
                     this.$notify({
 
                         title: 'Success',
